@@ -1,12 +1,11 @@
-import "./globals.css";
+import "./assets/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { AuthContextProvider } from "./contexts/AuthContext";
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Instagram",
   description: "Instagram clone made by Anis Kehila",
+  icons: "/logoIcon.png",
 };
 
 export default function RootLayout({
@@ -16,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <body
+        className="font-instaSans bg-white text-black"
+        suppressHydrationWarning={true}
+      >
         <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>

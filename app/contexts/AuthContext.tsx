@@ -12,11 +12,15 @@ import firebaseApp from "../firebase/config";
 const auth = getAuth(firebaseApp);
 type AuthContextProps = {
   user: User | null;
+  loading: boolean;
 };
 type AuthContextProviderProps = {
   children: ReactNode;
 };
-export const AuthContext = createContext<AuthContextProps>({ user: null });
+export const AuthContext = createContext<AuthContextProps>({
+  user: null,
+  loading: true,
+});
 
 export const useAuthContext = (): AuthContextProps => useContext(AuthContext);
 
@@ -35,10 +39,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     });
     return () => unsubscribe();
   }, []);
-
-  return (
-    <AuthContext.Provider value={{ user }}>
-      {loading ? <div>Loading...</div> : children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    loading,
+  };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -1,12 +1,10 @@
 "use client";
 import { FormEvent, useState } from "react";
 import signUp from "../firebase/auth/signUp";
-import { useRouter } from "next/navigation";
 
 function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
   const handleForm = async (event: FormEvent) => {
     event.preventDefault();
@@ -14,8 +12,6 @@ function Page() {
     if (error) {
       return console.log(error);
     }
-    console.log(result);
-    return router.push("/");
   };
   return (
     <div className="wrapper">

@@ -1,5 +1,11 @@
+"use client";
 import Image from "next/image";
-
+import Link from "next/link";
+import { useAuthContext } from "./contexts/AuthContext";
+import Loading from "./loading";
+import Dashboard from "./dashboard/page";
+import SignIn from "./signin/page";
 export default function Home() {
-  return <h1>Instagram clone</h1>;
+  const { loading, user } = useAuthContext();
+  return loading ? <Loading /> : user ? <Dashboard /> : <SignIn />;
 }
