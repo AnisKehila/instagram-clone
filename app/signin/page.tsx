@@ -6,12 +6,17 @@ import AuthInput from "../components/AuthInput";
 import { useMutation } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AuthErrorCodes } from "firebase/auth";
+import { z } from "zod"; // Import zod
+
+const emailSchema = z.string().email();
+const passwordSchema = z.string().min(6); // Assuming minimum password length of 6 characters
 
 function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [activeImg, setActiveImg] = useState<number>(1);
   const [err, setErr] = useState<string>("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveImg((prevActiveImg) => (prevActiveImg % 3) + 1);
@@ -19,6 +24,15 @@ function SignIn() {
 
     return () => clearInterval(interval); // Cleanup the interval on unmount
   }, []);
+  useEffect(() => {
+    const emailResult = emailSchema.safeParse(email);
+    const passwordResult = passwordSchema.safeParse(password);
+    if (emailResult.success && passwordResult.success) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [email, password]);
   const mutate = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       signIn(email, password),
@@ -115,7 +129,7 @@ function SignIn() {
 
             <button
               type="submit"
-              disabled={!email || !password}
+              disabled={!isFormValid}
               className="my-[8px] bg-blue w-full text-white py-1 transition-opacity delay-200 rounded-md hover:bg-sky-600 disabled:opacity-70 disabled:hover:bg-blue  "
             >
               {mutate.isLoading ? (
