@@ -7,13 +7,8 @@ export default async function signUp(
   email: string,
   password: string
 ): Promise<{ result: any; error: any }> {
-  let result: any = null,
-    error: any = null;
-  try {
-    result = await createUserWithEmailAndPassword(auth, email, password);
-  } catch (e) {
-    error = e;
-  }
+  let result: any = null;
+  result = await createUserWithEmailAndPassword(auth, email, password);
 
-  return { result, error };
+  return result;
 }

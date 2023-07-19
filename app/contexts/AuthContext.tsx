@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { onAuthStateChanged, getAuth, User, Unsubscribe } from "firebase/auth";
 import firebaseApp from "../firebase/config";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const auth = getAuth(firebaseApp);
 type AuthContextProps = {
@@ -21,6 +22,7 @@ export const AuthContext = createContext<AuthContextProps>({
   user: null,
   loading: true,
 });
+const queryClient = new QueryClient();
 
 export const useAuthContext = (): AuthContextProps => useContext(AuthContext);
 
@@ -43,5 +45,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     user,
     loading,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    </QueryClientProvider>
+  );
 };
