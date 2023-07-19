@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AuthErrorCodes } from "firebase/auth";
 import { z } from "zod"; // Import zod
+import Link from "next/link";
 
 const emailSchema = z.string().email();
 const passwordSchema = z.string().min(6); // Assuming minimum password length of 6 characters
@@ -146,6 +147,12 @@ function SignIn() {
               </div>
             )}
           </form>
+          <div className="flex gap-1 items-center justify-center text-center border border-borderColor py-[10px]">
+            <span>{"Don't have an account?"}</span>
+            <Link href="/signup" className="text-blue font-semibold	">
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
     </main>
