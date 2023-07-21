@@ -20,7 +20,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/contexts/AuthContext.tsx"
+    "src/app/contexts/AuthContext.tsx"
   ],
+
   "exclude": ["node_modules"]
 }

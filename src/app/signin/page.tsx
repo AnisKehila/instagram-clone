@@ -1,8 +1,8 @@
 "use client";
 import { useState, FormEvent, useEffect } from "react";
-import signIn from "../firebase/auth/signIn";
+import signIn from "@/firebase/auth/signIn";
 import Image from "next/image";
-import AuthInput from "../components/AuthInput";
+import AuthInput from "@/components/AuthInput";
 import { useMutation } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AuthErrorCodes } from "firebase/auth";
@@ -117,6 +117,7 @@ function SignIn() {
               inputId={"email"}
               labelTxt={"Phone number, username, or email"}
               inputValue={email}
+              toggle={false}
             />
             <AuthInput
               setter={setPassword}
@@ -126,6 +127,7 @@ function SignIn() {
               inputId={"password"}
               labelTxt={"Password"}
               inputValue={password}
+              toggle={true}
             />
 
             <button

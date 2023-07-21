@@ -21,6 +21,7 @@
     "eslint-config-next": "13.4.10",
     "firebase": "^10.0.0",
     "next": "13.4.10",
+    "next-nprogress-bar": "^2.0.3",
     "postcss": "8.4.26",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,5 +29,8 @@
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
     "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.0"
   }
 }

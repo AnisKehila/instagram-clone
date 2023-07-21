@@ -8,6 +8,7 @@ type AuthInputProps = {
   inputName: string;
   inputId: string;
   labelTxt: string;
+  toggle: boolean;
 };
 function AuthInput({
   setter,
@@ -17,12 +18,13 @@ function AuthInput({
   inputName,
   inputId,
   labelTxt,
+  toggle,
 }: AuthInputProps) {
   return (
-    <div className="relative h-[37px] w-[268px] border border-neutral-300 bg-neutral-100 rounded-[3px] px-[8px] mb-[6px] ">
+    <div className="relative h-[37px] w-full sm:w-[268px] border border-neutral-300 bg-neutral-100 rounded-[3px] px-[8px] mb-[6px] overflow-hidden ">
       <label
         htmlFor={inputId}
-        className={`absolute text-neutral-600 top-[50%] cursor-text select-none w-full transition duration-300 ${
+        className={`absolute text-neutral-600 top-[50%] cursor-text select-none w-full transition duration-300 break-keep whitespace-nowrap	 ${
           inputValue
             ? "text-xs translate-y-[-110%]"
             : "text-sm translate-y-[-50%]"

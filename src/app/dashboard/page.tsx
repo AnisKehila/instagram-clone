@@ -1,4 +1,5 @@
-import signOut from "../firebase/auth/signOut";
+"use client";
+import signOut from "@/firebase/auth/signOut";
 import React from "react";
 
 function Dashboard() {

@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
-import signUp from "../firebase/auth/signUp";
+import signUp from "../../firebase/auth/signUp";
 
 function Page() {
   const [email, setEmail] = useState("");

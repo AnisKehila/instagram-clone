@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-
 const Loading = () => {
   return (
     <div className="flex items-center flex-col justify-between min-h-screen">
