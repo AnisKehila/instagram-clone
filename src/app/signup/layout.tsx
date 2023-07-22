@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login • Instagram",
-  description: "Login to Instagram clone made by Anis Kehila",
+  title: "Sign up • Instagram",
+  description: "Sign up to Instagram clone made by Anis Kehila",
   icons: "/logoIcon.png",
 };
 

@@ -2,7 +2,7 @@
 import React from "react";
 import { AuthContextProvider } from "@/contexts/AuthContext";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
-import styles from "@/assets/styles/progress..css";
+import styles from "@/assets/styles/progress.css";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>

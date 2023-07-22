@@ -1,14 +1,38 @@
 import firebaseApp from "../config";
 import { createUserWithEmailAndPassword, getAuth, Auth } from "firebase/auth";
+import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
 
 const auth: Auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 export default async function signUp(
   email: string,
-  password: string
-): Promise<{ result: any; error: any }> {
-  let result: any = null;
-  result = await createUserWithEmailAndPassword(auth, email, password);
+  password: string,
+  phoneNumber: string,
+  fullName: string,
+  username: string
+) {
+  try {
+    // Create user with email and password
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
 
-  return result;
+    // Save additional user information in Firestore
+    const userRef = doc(collection(db, "users"), user.uid);
+    await setDoc(userRef, {
+      phoneNumber: phoneNumber,
+      fullName: fullName,
+      username: username,
+    });
+
+    // Return the user information
+    return user;
+  } catch (error) {
+    // Handle any errors that might occur during the process
+    throw error;
+  }
 }
