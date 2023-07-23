@@ -5,13 +5,17 @@ import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
 const auth: Auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
-export default async function signUp(
-  email: string,
-  password: string,
-  phoneNumber: string,
-  fullName: string,
-  username: string
-) {
+export default async function signUp({
+  email,
+  password,
+  fullName,
+  username,
+}: {
+  email: string;
+  password: string;
+  fullName: string;
+  username: string;
+}) {
   try {
     // Create user with email and password
     const userCredential = await createUserWithEmailAndPassword(
@@ -24,11 +28,14 @@ export default async function signUp(
     // Save additional user information in Firestore
     const userRef = doc(collection(db, "users"), user.uid);
     await setDoc(userRef, {
-      phoneNumber: phoneNumber,
       fullName: fullName,
-      username: username,
+      userName: username,
+      email: email,
     });
-
+    const usernameRef = doc(collection(db, "userNames"), username);
+    await setDoc(usernameRef, {
+      uid: user.uid,
+    });
     // Return the user information
     return user;
   } catch (error) {

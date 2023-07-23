@@ -8,6 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Image from "next/image";
 import { AuthErrorCodes } from "firebase/auth";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 const emailSchema = z.string().email();
 const passwordSchema = z.string().min(6);
@@ -16,6 +17,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState<string>("");
   const [err, setErr] = useState<string>("");
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const emailResult = emailSchema.safeParse(email);
@@ -43,6 +45,7 @@ const LoginForm = () => {
         setErr(`An error occurred:, ${(error.code, error.message)}`);
       }
     },
+    onSuccess: () => router.push("/"),
   });
   const handleForm = async (e: FormEvent) => {
     e.preventDefault();
@@ -66,7 +69,6 @@ const LoginForm = () => {
         type={"email"}
         inputId={"email"}
         labelTxt={"Phone number, username, or email"}
-        toggle={false}
         required
       />
       <AuthInput
@@ -74,22 +76,20 @@ const LoginForm = () => {
         type={"password"}
         inputId={"password"}
         labelTxt={"Password"}
-        toggle={true}
         required
       />
 
       <button
         type="submit"
-        disabled={!isFormValid}
-        className="my-[8px] bg-blue w-full text-white py-1 transition-opacity delay-200 rounded-md hover:bg-sky-600 disabled:opacity-70 disabled:hover:bg-blue  "
+        disabled={!isFormValid || mutate.isLoading}
+        className="relative my-[8px] bg-blue w-full text-white py-1 transition-opacity delay-200 rounded-md hover:bg-sky-600 disabled:opacity-70 disabled:hover:bg-blue  "
       >
-        {mutate.isLoading ? (
-          <span className="flex items-center justify-center">
+        {mutate.isLoading && (
+          <span className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] ">
             <CircularProgress size={20} color="inherit" />
           </span>
-        ) : (
-          "Log in"
         )}
+        Log in
       </button>
       {err && (
         <div className="my-3 text-red-500 text-[15px]">

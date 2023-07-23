@@ -1,31 +1,39 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import { UseFormRegister } from "react-hook-form";
-import cheked from "@/assets/icons/Checked.svg";
-import wrong from "@/assets/icons/Wrong.svg";
+import Cheked from "@/assets/icons/Checked.svg";
+import Wrong from "@/assets/icons/Wrong.svg";
+import CircularProgress from "@mui/material/CircularProgress";
+
 type AuthInputProps = {
   setter?: (value: string) => void;
   inputId: string;
   labelTxt: string;
-  toggle?: boolean;
-  error?: any;
-  register?: UseFormRegister<any>; // Replace 'any' with your form input type if you have one
+  error?: boolean;
+  loading?: boolean;
+  type: string;
+  register?: UseFormRegister<any>;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 function AuthInput({
   setter,
   inputId,
   labelTxt,
-  toggle,
   register,
   error,
+  type,
+  loading,
   ...props // Collect any additional props in the restProps object
 }: AuthInputProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const { onChange, onBlur, name, ref } = register(inputId);
+  const { onChange, onBlur, name, ref }: any = register
+    ? register(inputId)
+    : {};
+  const [currentType, setCurrentType] = useState(type);
   return (
     <div
-      className={`relative h-[37px] w-full sm:w-[268px] border "border-neutral-300"
+      className={`relative h-[37px] w-full sm:w-[268px] border  ${
+        isFocused ? "border-neutral-400" : "border-neutral-300"
+      }
       bg-neutral-100 rounded-[3px] px-[8px] mb-[6px] overflow-hidden flex items-center`}
     >
       <div className="w-full">
@@ -43,15 +51,16 @@ function AuthInput({
           onChange={(e) => {
             setter && setter(e.target.value);
             setInputValue(e.target.value);
-            onChange(e);
+            register && onChange(e);
           }}
           onBlur={(e) => {
-            onBlur(e);
+            register && onBlur(e);
             setIsFocused(false);
           }}
           onFocus={() => setIsFocused(true)}
-          name={name} // assign name prop
-          ref={ref} // assign ref prop
+          name={name}
+          ref={ref}
+          type={currentType}
           className={`w-full h-full outline-none bg-transparent text-sm ${
             inputValue && "pt-[8px]"
           }`}
@@ -60,25 +69,28 @@ function AuthInput({
         />
       </div>
       {register && (
-        <span className="flex h-full">
-          {inputValue && !error && (
-            <Image
-              width={22}
-              height={22}
-              src={cheked}
-              alt="field validated"
-              className="w-[22px]"
-            />
+        <span className="flex h-full items-center ">
+          {!loading && inputValue && !error && (
+            <Cheked className="stroke-[#A6A8AB]" />
           )}
-          {error && !isFocused && (
-            <Image
-              width={44}
-              height={44}
-              src={wrong}
-              alt="field is wrong"
-              className="w-[44px]"
-            />
+          {!loading && error && !isFocused && (
+            <Wrong className="stroke-[#ee2d3e] fill-transparent" />
           )}
+          {loading && (
+            <span>
+              <CircularProgress size={20} color="inherit" />
+            </span>
+          )}
+        </span>
+      )}
+      {inputId === "password" && inputValue && (
+        <span
+          className="flex select-none ml-1 text-sm font-bold cursor-pointer hover:opacity-60"
+          onClick={() =>
+            setCurrentType(currentType === "password" ? "text" : "password")
+          }
+        >
+          {currentType === "password" ? "Show" : "Hide"}
         </span>
       )}
     </div>

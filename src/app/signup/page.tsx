@@ -20,9 +20,9 @@ const SignUp = () => {
           </h2>
           <SignUpForm />
         </div>
-        <div className="flex gap-1 items-center justify-center text-center border border-borderColor py-[10px]">
-          <span>{"Have an account?"}</span>
-          <Link href="/signin" className="text-blue font-light	">
+        <div className="flex gap-1 items-center justify-center text-center border border-borderColor py-6">
+          <span>Have an account?</span>
+          <Link href="/signin" className="text-blue font-light">
             Log in
           </Link>
         </div>
