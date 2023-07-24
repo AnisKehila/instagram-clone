@@ -120,7 +120,7 @@ const SignUpForm = () => {
       <AuthInput
         type={"email"}
         inputId={"email"}
-        labelTxt={"Mobile Number Or Email"}
+        labelTxt={"Mobile Number or Email"}
         register={register}
         error={!!errors.email || emailUsed}
         loading={checkIfEmailUsed.isLoading}
