@@ -4,13 +4,12 @@ import signOut from "@/firebase/auth/signOut";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const Dashboard = () => {
-  const router = useRouter();
-
+const Feed = () => {
   const handleLogout = async () => {
     await signOut();
   };
   const { user } = useAuthContext();
+  const router = useRouter();
   useEffect(() => {
     if (!user) {
       router.push("/");
@@ -18,10 +17,10 @@ const Dashboard = () => {
   }, [user, router]);
   return (
     <div className="flex justify-between">
-      <span>Dashboard</span>
+      <span>Feed</span>
       <button onClick={handleLogout}>Log out</button>
     </div>
   );
 };
 
-export default Dashboard;
+export default Feed;
