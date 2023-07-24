@@ -9,7 +9,6 @@ const Loading = () => {
           alt="Instagram"
           width={80}
           height={80}
-          priority={Image}
         />
       </div>
       <Image

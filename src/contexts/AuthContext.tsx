@@ -9,6 +9,7 @@ import React, {
 import { onAuthStateChanged, getAuth, User, Unsubscribe } from "firebase/auth";
 import firebaseApp from "../firebase/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Loading from "@/app/loading";
 
 const auth = getAuth(firebaseApp);
 type AuthContextProps = {
@@ -45,6 +46,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     user,
     loading,
   };
+  if (loading) return <Loading />;
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
