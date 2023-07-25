@@ -16,6 +16,8 @@ import SideBarLink from "./SideBarLink";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
 import Menu from "@mui/base/Menu";
+import SearchDrawer from "./SearchDrawer";
+
 const SideBar = () => {
   const pathname = usePathname();
   const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -24,19 +26,21 @@ const SideBar = () => {
   const menuActions = React.useRef(null);
 
   return (
-    <aside className="flex flex-col items-start w-250 h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
-      <header className="w-full pt-[25px] pb-4 lg:px-[12px]">
-        <Link
-          href="/feed"
-          className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]"
-        >
-          <LogoInline />
-        </Link>
-        <SideBarLink href="/feed" className="lg:hidden">
-          <LogoBlack className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+    <aside className="flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
+      <header className={`pt-[25px] pb-4  ${!isSearch && "lg:px-[12px]"}`}>
+        {!isSearch && (
+          <Link
+            href="/feed"
+            className={`hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]`}
+          >
+            <LogoInline />
+          </Link>
+        )}
+        <SideBarLink href="/feed" className={`${!isSearch && "lg:hidden "}`}>
+          <LogoBlack className="transition duration-100 group-hover:scale-105 group-active:scale-95 " />
         </SideBarLink>
       </header>
-      <nav className="flex-grow flex flex-col">
+      <nav className="flex-grow flex flex-col gap-1">
         <SideBarLink
           isActive={pathname == "/feed" && !isSearch && !isCreatePost}
           href="/feed"
@@ -46,20 +50,25 @@ const SideBar = () => {
           ) : (
             <Home className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
           )}
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Home
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Home
+            </span>
+          )}
         </SideBarLink>
 
         <SideBarLink
           isActive={isSearch}
           href="#"
           onClick={() => setIsSearch(true)}
+          className={isSearch ? "border-[1px] rounded-md" : ""}
         >
-          <Search className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Search
-          </span>
+          <Search className="transition delay-100 group-hover:scale-105 group-active:scale-95" />
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Search
+            </span>
+          )}
         </SideBarLink>
 
         <SideBarLink
@@ -67,9 +76,11 @@ const SideBar = () => {
           href="/explore"
         >
           <Explore className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Explore
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Explore
+            </span>
+          )}
         </SideBarLink>
 
         <SideBarLink
@@ -77,9 +88,11 @@ const SideBar = () => {
           href="/reels"
         >
           <Reels className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Reels
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Reels
+            </span>
+          )}
         </SideBarLink>
 
         <SideBarLink
@@ -87,9 +100,11 @@ const SideBar = () => {
           href="/messages"
         >
           <Messages className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Messages
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Messages
+            </span>
+          )}
         </SideBarLink>
 
         <SideBarLink
@@ -97,9 +112,11 @@ const SideBar = () => {
           href="/notifications"
         >
           <Notifications className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Notifications
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Notifications
+            </span>
+          )}
         </SideBarLink>
 
         <SideBarLink
@@ -108,9 +125,11 @@ const SideBar = () => {
           onClick={() => setIsCreatePost(true)}
         >
           <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Create
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Create
+            </span>
+          )}
         </SideBarLink>
         <SideBarLink
           isActive={
@@ -122,9 +141,11 @@ const SideBar = () => {
             sx={{ width: 22, height: 22 }}
             className="transition delay-100 group-hover:scale-105 group-active:scale-95 "
           />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            Profile
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              Profile
+            </span>
+          )}
         </SideBarLink>
         <SideBarLink
           isActive={isMenu}
@@ -133,9 +154,11 @@ const SideBar = () => {
           className="mt-auto"
         >
           <Burger className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-            More
-          </span>
+          {!isSearch && (
+            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+              More
+            </span>
+          )}
         </SideBarLink>
         <Menu
           actions={menuActions}
@@ -195,6 +218,7 @@ const SideBar = () => {
           </div>
         </Menu>
       </nav>
+      <SearchDrawer isActive={isSearch} setIsActive={setIsSearch} />
     </aside>
   );
 };
