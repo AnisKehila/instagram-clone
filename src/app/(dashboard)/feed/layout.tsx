@@ -1,4 +1,3 @@
-import SideBar from "@/components/sidebar/SideBar";
 import React from "react";
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -12,10 +11,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="flex">
-      <SideBar />
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }

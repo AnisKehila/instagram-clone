@@ -10,18 +10,23 @@ import { onAuthStateChanged, getAuth, User, Unsubscribe } from "firebase/auth";
 import firebaseApp from "../firebase/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Loading from "@/app/loading";
-
+import fetchUserData from "@/firebase/fetchUserData";
+import { UserData } from "@/types";
 const auth = getAuth(firebaseApp);
 type AuthContextProps = {
   user: User | null;
   loading: boolean;
+  userData: UserData | null;
 };
+
 type AuthContextProviderProps = {
   children: ReactNode;
 };
+
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
   loading: true,
+  userData: null,
 });
 const queryClient = new QueryClient();
 
@@ -29,12 +34,14 @@ export const useAuthContext = (): AuthContextProps => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe: Unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe: Unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
+        setUserData((await fetchUserData(user.uid)) || null);
       } else {
         setUser(null);
       }
@@ -44,6 +51,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   }, []);
   const value = {
     user,
+    userData,
     loading,
   };
   if (loading) return <Loading />;

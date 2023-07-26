@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 
-import SearchInput from "./SearchInput";
+import SearchInput from "./ui/SearchInput";
 
 const SearchDrawer = ({
   isActive,

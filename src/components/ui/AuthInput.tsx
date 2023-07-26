@@ -5,7 +5,7 @@ import Wrong from "@/assets/icons/Wrong.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 
 type AuthInputProps = {
-  setter?: (value: string) => void;
+  setter?: React.Dispatch<React.SetStateAction<string>>;
   inputId: string;
   labelTxt: string;
   error?: boolean;

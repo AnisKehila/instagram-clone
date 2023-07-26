@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import AuthInput from "@/components/AuthInput";
+import AuthInput from "@/components/ui/AuthInput";
 import { useMutation } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AuthErrorCodes } from "firebase/auth";

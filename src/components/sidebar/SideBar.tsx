@@ -15,18 +15,18 @@ import Burger from "@/assets/icons/Burger.svg";
 import SideBarLink from "./SideBarLink";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
-import Menu from "@mui/base/Menu";
-import SearchDrawer from "./SearchDrawer";
+import SearchDrawer from "../SearchDrawer";
+import SideBarMoreMenu from "./SideBarMoreMenu";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const SideBar = () => {
   const pathname = usePathname();
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
-  const menuActions = React.useRef(null);
-
+  const { userData } = useAuthContext();
   return (
-    <aside className="flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
+    <aside className="hidden sm:flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
       <header className={`pt-[25px] pb-4  ${!isSearch && "lg:px-[12px]"}`}>
         {!isSearch && (
           <Link
@@ -133,13 +133,21 @@ const SideBar = () => {
         </SideBarLink>
         <SideBarLink
           isActive={
-            pathname.split("/")[1] == "profile" && !isSearch && !isCreatePost
+            pathname.split("/")[1] == userData?.userName &&
+            !isSearch &&
+            !isCreatePost
           }
-          href="/profile"
+          href={`/${userData?.userName}`}
         >
           <Avatar
-            sx={{ width: 22, height: 22 }}
-            className="transition delay-100 group-hover:scale-105 group-active:scale-95 "
+            sx={{ width: 28, height: 28 }}
+            className={`transition delay-100 group-hover:scale-105 group-active:scale-95 border-[#000000] ${
+              pathname.split("/")[1] == userData?.userName &&
+              !isSearch &&
+              !isCreatePost &&
+              "border-2"
+            } `}
+            src={userData?.profileImage}
           />
           {!isSearch && (
             <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
@@ -160,63 +168,7 @@ const SideBar = () => {
             </span>
           )}
         </SideBarLink>
-        <Menu
-          actions={menuActions}
-          open={isMenu}
-          onOpenChange={(open) => {
-            setIsMenu(open);
-          }}
-          style={{ top: "unset" }}
-          className="drop-shadow-[0_4px_12px_rgba(0,0,0,.15)] z-10 w-[266px] rounded-xl overflow-hidden bottom-8 left-14 lg:left-4 lg:bottom-20"
-        >
-          <div className=" flex flex-col gap-1 bg-slate-100">
-            <ul className="bg-white p-2">
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-                  <span>Settings</span>
-                </SideBarLink>
-              </li>
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-                  <span>Your activity</span>
-                </SideBarLink>
-              </li>
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-                  <span>Saved</span>
-                </SideBarLink>
-              </li>
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-                  <span>Switch appearance</span>
-                </SideBarLink>
-              </li>
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-                  <span>Create</span>
-                </SideBarLink>
-              </li>
-            </ul>
-            <ul className="bg-white p-2 flex flex-col gap-1">
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <span>Report a problem</span>
-                </SideBarLink>
-              </li>
-              <hr />
-              <li>
-                <SideBarLink href="#" className="w-full">
-                  <span>Log out</span>
-                </SideBarLink>
-              </li>
-            </ul>
-          </div>
-        </Menu>
+        <SideBarMoreMenu isMenu={isMenu} setIsMenu={setIsMenu} />
       </nav>
       <SearchDrawer isActive={isSearch} setIsActive={setIsSearch} />
     </aside>

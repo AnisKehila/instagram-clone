@@ -31,6 +31,7 @@ export default async function signUp({
       fullName: fullName,
       userName: username,
       email: email,
+      createdAt: new Date(),
     });
     const usernameRef = doc(collection(db, "userNames"), username);
     await setDoc(usernameRef, {

@@ -2,7 +2,7 @@
 import { useState, FormEvent, useEffect } from "react";
 import signIn from "@/firebase/auth/signIn";
 import React from "react";
-import AuthInput from "@/components/AuthInput";
+import AuthInput from "@/components/ui/AuthInput";
 import { useMutation } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import Image from "next/image";
