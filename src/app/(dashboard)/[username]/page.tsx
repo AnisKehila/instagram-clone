@@ -1,8 +1,9 @@
-import Profile from "@/components/Profile";
+import Profile from "@/components/profile/Profile";
 import { fetchUserDataByUserName } from "@/firebase/fetchUserData";
 import { UserData } from "@/types";
 import React from "react";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -11,11 +12,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const data = (await fetchUserDataByUserName(params.username)) as UserData;
   return {
-    title: `${data.fullName} (@${data.userName}) • Instagram photos and videos`,
+    title: data
+      ? `${data?.fullName} (@${data?.userName}) • Instagram photos and videos`
+      : "Instagram",
   };
 }
 const Page = async ({ params }: { params: any }) => {
-  const data = (await fetchUserDataByUserName(params.username)) as UserData;
+  const data = (await fetchUserDataByUserName(params?.username)) as UserData;
   return <Profile profileData={data} />;
 };
 

@@ -24,13 +24,17 @@ export const fetchUserDataByUserName = async (
 ): Promise<UserData | null> => {
   const usersRef = collection(db, "users");
   const q = query(usersRef, where("userName", "==", userName));
-  const querySnapshot = await getDocs(q);
-  if (querySnapshot.empty) {
-    throw new Error("No user found!");
-  }
+  try {
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      return null;
+    }
 
-  const userData = querySnapshot.docs[0].data() as UserData;
-  return userData;
+    const userData = querySnapshot.docs[0].data() as UserData;
+    return userData;
+  } catch (e) {
+    return null;
+  }
 };
 
 export default fetchUserData;
