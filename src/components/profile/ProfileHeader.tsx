@@ -1,41 +1,59 @@
-import React from "react";
-import { Avatar } from "@mui/material";
+"use client";
+import React, { useEffect, useState } from "react";
+import { Avatar, CircularProgress } from "@mui/material";
 import ProfileButtons from "./ProfileButtons";
 import { UserData } from "@/types";
-const ProfileHeader = ({ profileData }: { profileData: UserData }) => {
+import Stats from "./Stats";
+import Bio from "./Bio";
+import ProfilePicModal from "../modals/profile-photo/ProfilePicModal";
+const ProfileHeader = ({
+  profileData,
+  isPersonal,
+}: {
+  profileData: UserData;
+  isPersonal: boolean;
+}) => {
+  const [picModal, setPicModal] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
+
   return (
-    <header className="profile-info mt-8 ">
-      <div className="flex items-start gap-[101px] px-[68px]">
-        <Avatar
-          src={profileData?.profileImage}
-          sx={{ width: 150, height: 150 }}
-        />
-        <div className="flex flex-col ">
-          <div className="flex gap-4 items-center">
-            <span className="text-[28px]">{profileData.userName}</span>
-            <ProfileButtons />
+    <>
+      <header className="profile-info mt-8 ">
+        <div className="flex items-start gap-[101px] px-[68px]">
+          <div className={`relative ${imageLoading && "opacity-60"}`}>
+            <Avatar
+              src={profileData?.profileImage}
+              sx={{ width: 150, height: 150 }}
+              className="cursor-pointer"
+              onClick={() => isPersonal && setPicModal(true)}
+            />
+            {imageLoading && (
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <CircularProgress
+                  size={40}
+                  className="text-white"
+                  color="inherit"
+                />
+              </span>
+            )}
           </div>
-          <div className="mt-6 flex gap-[40px]">
-            <div className="flex gap-1">
-              <span className="font-bold">1.258</span>
-              <span>posts</span>
+          <div className="flex flex-col ">
+            <div className="flex gap-4 items-center">
+              <span className="text-[28px]">{profileData.userName}</span>
+              <ProfileButtons />
             </div>
-            <div className="flex gap-1">
-              <span className="font-bold">4M</span>
-              <span>followers</span>
-            </div>
-            <div className="flex gap-1">
-              <span className="font-bold">95</span>
-              <span>following</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold">{profileData.fullName}</span>
-            <span>{profileData.bio}</span>
+            <Stats />
+            <Bio bio={profileData.bio} fullName={profileData.fullName} />
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <ProfilePicModal
+        profileImage={profileData?.profileImage}
+        open={picModal}
+        setOpen={setPicModal}
+        setImageLoading={setImageLoading}
+      />
+    </>
   );
 };
 

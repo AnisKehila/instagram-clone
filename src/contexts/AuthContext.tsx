@@ -17,6 +17,7 @@ type AuthContextProps = {
   user: User | null;
   loading: boolean;
   userData: UserData | null;
+  setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
 };
 
 type AuthContextProviderProps = {
@@ -27,6 +28,7 @@ export const AuthContext = createContext<AuthContextProps>({
   user: null,
   loading: true,
   userData: null,
+  setUserData: () => {},
 });
 const queryClient = new QueryClient();
 
@@ -51,6 +53,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   }, []);
   const value = {
     user,
+    setUserData,
     userData,
     loading,
   };

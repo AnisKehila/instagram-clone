@@ -1,7 +1,5 @@
 import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
-import firebaseApp from "./config";
-
-const db = getFirestore(firebaseApp);
+import { db } from "./config";
 
 const checkUserName = async (username: string) => {
   const usernameRef = doc(collection(db, "userNames"), username);

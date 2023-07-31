@@ -21,6 +21,15 @@ module.exports = {
       fontFamily: {
         instaSans: ["Instagram Sans", ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        "modal-pop": {
+          "0%": { transform: "scale(1.4)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "modal-pop": "modal-pop .2s",
+      },
     },
   },
   plugins: [],

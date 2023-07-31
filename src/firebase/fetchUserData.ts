@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   collection,
   doc,
   getDoc,
@@ -8,10 +7,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-import firebaseApp from "./config";
+import { db } from "./config";
 import { UserData } from "@/types";
-
-const db = getFirestore(firebaseApp);
 
 const fetchUserData = async (uid: string): Promise<UserData> => {
   const userIdRef = doc(collection(db, "users"), uid);
@@ -29,7 +26,6 @@ export const fetchUserDataByUserName = async (
     if (querySnapshot.empty) {
       return null;
     }
-
     const userData = querySnapshot.docs[0].data() as UserData;
     return userData;
   } catch (e) {

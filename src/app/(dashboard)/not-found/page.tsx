@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const NotFound = () => {
   return (
     <div className="flex flex-col gap-10 text-center mx-auto mt-8 ">
       <span className="font-extrabold text-2xl">
@@ -17,4 +17,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default NotFound;

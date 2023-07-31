@@ -1,9 +1,8 @@
 import firebaseApp from "../config";
 import { createUserWithEmailAndPassword, getAuth, Auth } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
-
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../config";
 const auth: Auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
 
 export default async function signUp({
   email,
@@ -17,7 +16,6 @@ export default async function signUp({
   username: string;
 }) {
   try {
-    // Create user with email and password
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -25,9 +23,9 @@ export default async function signUp({
     );
     const user = userCredential.user;
 
-    // Save additional user information in Firestore
     const userRef = doc(collection(db, "users"), user.uid);
     await setDoc(userRef, {
+      userId: user.uid,
       fullName: fullName,
       userName: username,
       email: email,
@@ -37,10 +35,8 @@ export default async function signUp({
     await setDoc(usernameRef, {
       uid: user.uid,
     });
-    // Return the user information
     return user;
   } catch (error) {
-    // Handle any errors that might occur during the process
     throw error;
   }
 }
