@@ -10,7 +10,7 @@ import { onAuthStateChanged, getAuth, User, Unsubscribe } from "firebase/auth";
 import firebaseApp from "../firebase/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Loading from "@/app/loading";
-import fetchUserData from "@/firebase/fetchUserData";
+import { fetchUserData } from "@/firebase/fetchUserData";
 import { UserData } from "@/types";
 const auth = getAuth(firebaseApp);
 type AuthContextProps = {

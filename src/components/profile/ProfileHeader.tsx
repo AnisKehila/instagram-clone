@@ -22,7 +22,7 @@ const ProfileHeader = ({
         <div className="flex items-start gap-[101px] px-[68px]">
           <div className={`relative ${imageLoading && "opacity-60"}`}>
             <Avatar
-              src={profileData?.profileImage}
+              src={profileData.profileImage}
               sx={{ width: 150, height: 150 }}
               className="cursor-pointer"
               onClick={() => isPersonal && setPicModal(true)}
@@ -40,15 +40,15 @@ const ProfileHeader = ({
           <div className="flex flex-col ">
             <div className="flex gap-4 items-center">
               <span className="text-[28px]">{profileData.userName}</span>
-              <ProfileButtons />
+              <ProfileButtons isPersonal={isPersonal} />
             </div>
-            <Stats />
+            <Stats userId={profileData.userId} />
             <Bio bio={profileData.bio} fullName={profileData.fullName} />
           </div>
         </div>
       </header>
       <ProfilePicModal
-        profileImage={profileData?.profileImage}
+        profileImage={profileData.profileImage}
         open={picModal}
         setOpen={setPicModal}
         setImageLoading={setImageLoading}

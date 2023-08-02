@@ -14,7 +14,8 @@ export type UserData = {
 export type Post = {
   postId: string;
   userId: string;
-  imageUrl: string;
+  images: string[];
+  videos: string[];
   caption: string;
   likes: string[];
   comments: Comment[];
@@ -37,7 +38,7 @@ export type Like = {
 export type Activity = {
   user_id: string;
   activity_type: "like" | "comment" | "follow";
-  activity_data: string; // Can be post_id or user_id depending on the activity_type
+  activity_data: string;
   created_at: Timestamp;
 };
 
