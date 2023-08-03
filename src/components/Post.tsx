@@ -62,6 +62,7 @@ const Post = ({
               alt={`Image ${index + 1}`}
               fill={true}
               priority={true}
+              sizes="1"
             />
           </figure>
         ))}

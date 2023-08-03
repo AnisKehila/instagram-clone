@@ -10,8 +10,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modale,
 }: {
   children: React.ReactNode;
+  modale: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -19,7 +21,10 @@ export default function RootLayout({
         className="font-instaSans bg-white text-black"
         suppressHydrationWarning={true}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          {modale}
+        </Providers>
       </body>
     </html>
   );

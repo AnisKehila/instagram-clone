@@ -20,7 +20,6 @@ const Post = ({
   likes: string[];
   comments: Comment[];
 }) => {
-  console.log(images);
   return (
     <Link className="group col-span-1 relative flex" href={`/p/${postId}`}>
       <div className="absolute w-full h-full top-0 left-0 bg-[rgb(0,0,0,.2)] z-10 hidden group-hover:flex justify-center items-center">
