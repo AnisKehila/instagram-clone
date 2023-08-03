@@ -17,7 +17,7 @@ const Stats = ({ userId }: { userId: string }) => {
   });
   return (
     <div className="mt-5 flex gap-[40px]">
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-1 flex-col sm:flex-row flex-grow sm:flex-grow-0 items-center">
         <span className="font-bold">
           {!isFetching ? (
             stats.posts
@@ -27,7 +27,7 @@ const Stats = ({ userId }: { userId: string }) => {
         </span>
         <span>posts</span>
       </div>
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-1 flex-col sm:flex-row flex-grow sm:flex-grow-0 items-center">
         <span className="font-bold">
           {!isFetching ? (
             stats.followers
@@ -37,7 +37,7 @@ const Stats = ({ userId }: { userId: string }) => {
         </span>
         <span>followers</span>
       </div>
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-1 flex-col sm:flex-row flex-grow sm:flex-grow-0 items-center">
         <span className="font-bold">
           {!isFetching ? (
             stats.following

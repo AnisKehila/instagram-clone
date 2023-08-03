@@ -18,13 +18,12 @@ const ProfileHeader = ({
 
   return (
     <>
-      <header className="profile-info mt-8 ">
-        <div className="flex items-start gap-[101px] px-[68px]">
+      <header className="mt-8">
+        <div className="flex items-center  sm:items-start gap-6 px-4 md:gap-[101px] md:px-[68px]">
           <div className={`relative ${imageLoading && "opacity-60"}`}>
             <Avatar
               src={profileData.profileImage}
-              sx={{ width: 150, height: 150 }}
-              className="cursor-pointer"
+              className="cursor-pointer w-[77px] h-[77px] md:w-[150px] md:h-[150px]"
               onClick={() => isPersonal && setPicModal(true)}
             />
             {imageLoading && (
@@ -37,14 +36,24 @@ const ProfileHeader = ({
               </span>
             )}
           </div>
-          <div className="flex flex-col ">
-            <div className="flex gap-4 items-center">
+          <div className="flex flex-col">
+            <div className="flex flex-col md:flex-row gap-4 md:items-center">
               <span className="text-[28px]">{profileData.userName}</span>
               <ProfileButtons isPersonal={isPersonal} />
             </div>
-            <Stats userId={profileData.userId} />
-            <Bio bio={profileData.bio} fullName={profileData.fullName} />
+            <div className="hidden sm:block">
+              <Stats userId={profileData.userId} />
+            </div>
+            <div className="hidden sm:block">
+              <Bio bio={profileData.bio} fullName={profileData.fullName} />
+            </div>
           </div>
+        </div>
+        <div className="sm:hidden px-4">
+          <Bio bio={profileData.bio} fullName={profileData.fullName} />
+        </div>
+        <div className="sm:hidden border-t mt-4">
+          <Stats userId={profileData.userId} />
         </div>
       </header>
       <ProfilePicModal

@@ -17,7 +17,7 @@ export async function generateMetadata({
       : "Instagram",
   };
 }
-const Page = async ({ params }: { params: any }) => {
+const Page = async ({ params }: { params: { username: string } }) => {
   const data = (await fetchUserDataByUserName(params?.username)) as UserData;
   if (!data) return <NotFound />;
   return <Profile profileData={data} />;

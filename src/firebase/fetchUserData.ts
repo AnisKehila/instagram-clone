@@ -12,8 +12,8 @@ import { Post, UserData } from "@/types";
 
 export const fetchUserData = async (uid: string): Promise<UserData> => {
   const userIdRef = doc(collection(db, "users"), uid);
-  const userDAta = await getDoc(userIdRef);
-  return userDAta.data() as UserData;
+  const userData = await getDoc(userIdRef);
+  return userData.data() as UserData;
 };
 
 export const fetchUserDataByUserName = async (

@@ -32,14 +32,14 @@ export type Comment = {
 export type Like = {
   postId: string;
   userId: string;
-  created_at: Timestamp;
+  createdAt: Timestamp;
 };
 
 export type Activity = {
   user_id: string;
   activity_type: "like" | "comment" | "follow";
   activity_data: string;
-  created_at: Timestamp;
+  createdAt: Timestamp;
 };
 
 export type ExplorePosts = {

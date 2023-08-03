@@ -16,7 +16,7 @@ const Profile = ({ profileData }: { profileData: UserData }) => {
   }, [profileData, userData]);
   return (
     profileData && (
-      <main className="w-[945px] mx-auto max-w-full">
+      <main className="max-w-[945px] mx-auto w-full sm:px-4">
         <ProfileHeader
           profileData={isPersonal && userData ? userData : profileData}
           isPersonal={isPersonal}

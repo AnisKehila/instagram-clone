@@ -29,6 +29,7 @@ export default async function signUp({
       fullName: fullName,
       userName: username,
       email: email,
+      following: [user.uid],
       createdAt: new Date(),
     });
     const usernameRef = doc(collection(db, "userNames"), username);
