@@ -2,12 +2,12 @@
 import { Comment } from "@/types";
 import React, { useEffect, useState } from "react";
 import Dots from "@/assets/icons/More.svg";
-import Slider from "react-slick";
 import Image from "next/image";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Avatar } from "@mui/material";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/splide/dist/css/splide.min.css";
+
 import Link from "next/link";
 const Post = ({
   userName,
@@ -30,21 +30,14 @@ const Post = ({
   likes: string[];
   comments: Comment[];
 }) => {
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   const { userData } = useAuthContext();
   const [isFollowing, setIsFollowing] = useState(false);
   useEffect(() => {
     setIsFollowing(userData?.following?.includes(userId) || false);
   }, [userData, userId]);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5">
-      <div className="md:hidden flex justify-between p-4 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-5 w-full ">
+      <div className="md:hidden flex justify-between p-4">
         <Link className="flex gap-2 items-center" href={`/${userName}`}>
           <Avatar src={profilePicture} />
           <span className="font-bold text-xl">{userName}</span>
@@ -54,19 +47,23 @@ const Post = ({
           <Dots className="cursor-pointer" />
         </div>
       </div>
-      <Slider {...settings} className="md:col-span-3 max-w-full">
+
+      <Splide className="md:col-span-3">
         {images.map((imageUrl, index) => (
-          <figure key={index} className="w-full h-full aspect-square relative">
+          <SplideSlide
+            key={index}
+            className="w-full h-full aspect-square relative bg-gray-100 "
+          >
             <Image
               src={imageUrl}
               alt={`Image ${index + 1}`}
               fill={true}
               priority={true}
-              sizes="1"
+              className="object-contain"
             />
-          </figure>
+          </SplideSlide>
         ))}
-      </Slider>
+      </Splide>
 
       <div className="hidden md:block md:col-span-2">
         <div className="p-2 flex justify-between">

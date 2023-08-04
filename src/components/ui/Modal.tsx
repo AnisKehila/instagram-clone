@@ -1,6 +1,5 @@
-import React, { HTMLProps } from "react";
+import React from "react";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
-import { createPortal } from "react-dom";
 
 const Modal = ({
   children,
@@ -13,7 +12,7 @@ const Modal = ({
   open: boolean;
   setOpen: (arg: boolean) => void;
 } & React.HTMLProps<HTMLDivElement>) => {
-  return createPortal(
+  return (
     open && (
       <div
         className={
@@ -22,17 +21,16 @@ const Modal = ({
       >
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <div
-            className={
-              "bg-white rounded-lg animate-modal-pop z-30" + " " + className
-            }
+            className={`bg-white rounded-lg animate-modal-pop z-30 ${
+              className ? className : ""
+            }`}
             {...props}
           >
             {children}
           </div>
         </ClickAwayListener>
       </div>
-    ),
-    document.body
+    )
   );
 };
 
