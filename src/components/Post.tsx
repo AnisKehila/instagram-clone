@@ -6,8 +6,7 @@ import Image from "next/image";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Avatar } from "@mui/material";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/splide/dist/css/splide.min.css";
-
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 const Post = ({
   userName,
@@ -35,6 +34,7 @@ const Post = ({
   useEffect(() => {
     setIsFollowing(userData?.following?.includes(userId) || false);
   }, [userData, userId]);
+  const router = useRouter();
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 w-full ">
       <div className="md:hidden flex justify-between p-4">

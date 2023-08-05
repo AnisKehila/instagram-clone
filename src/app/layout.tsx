@@ -1,4 +1,5 @@
 import "@/assets/styles/globals.css";
+import "@splidejs/splide/dist/css/splide.min.css";
 import Providers from "@/components/Providers";
 import type { Metadata } from "next";
 
