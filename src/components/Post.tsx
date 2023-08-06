@@ -60,6 +60,7 @@ const Post = ({
               fill={true}
               priority={true}
               className="object-contain"
+              sizes="100%"
             />
           </SplideSlide>
         ))}

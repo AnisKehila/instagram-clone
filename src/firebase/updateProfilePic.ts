@@ -4,7 +4,7 @@ import { db, storage } from "./config";
 
 async function updateProfilePicture(
   userId: string,
-  newImageUrl: string
+  newImageUrl: string,
 ): Promise<void> {
   const userRef = doc(db, "users", userId);
   await updateDoc(userRef, { profileImage: newImageUrl });
@@ -21,7 +21,7 @@ async function uploadProfileImage(userId: string, file: File): Promise<string> {
 
 export async function setProfileImageAndUpdateFirestore(
   userId: string,
-  file: File
+  file: File,
 ): Promise<string> {
   try {
     const newImageUrl = await uploadProfileImage(userId, file);

@@ -18,6 +18,7 @@ import Link from "next/link";
 import SearchDrawer from "../SearchDrawer";
 import SideBarMoreMenu from "./SideBarMoreMenu";
 import { useAuthContext } from "@/contexts/AuthContext";
+import CreatePostModal from "../modals/create-post/CreatePostModal";
 
 const SideBar = () => {
   const pathname = usePathname();
@@ -26,152 +27,160 @@ const SideBar = () => {
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
   const { userData } = useAuthContext();
   return (
-    <aside className="hidden sm:flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
-      <header className={`pt-[25px] pb-4  ${!isSearch && "lg:px-[12px]"}`}>
-        {!isSearch && (
-          <Link
+    <>
+      <aside className="hidden fixed z-20 top-0 sm:flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
+        <header className={`pt-[25px] pb-4  ${!isSearch && "lg:px-[12px]"}`}>
+          {!isSearch && (
+            <Link
+              href="/feed"
+              className={`hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]`}
+            >
+              <LogoInline />
+            </Link>
+          )}
+          <SideBarLink href="/feed" className={`${!isSearch && "lg:hidden"}`}>
+            <LogoBlack className="transition duration-100 group-hover:scale-105 group-active:scale-95 " />
+          </SideBarLink>
+        </header>
+        <nav className="flex-grow flex flex-col gap-1">
+          <SideBarLink
+            isActive={pathname == "/feed" && !isSearch && !isCreatePost}
             href="/feed"
-            className={`hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]`}
           >
-            <LogoInline />
-          </Link>
-        )}
-        <SideBarLink href="/feed" className={`${!isSearch && "lg:hidden "}`}>
-          <LogoBlack className="transition duration-100 group-hover:scale-105 group-active:scale-95 " />
-        </SideBarLink>
-      </header>
-      <nav className="flex-grow flex flex-col gap-1">
-        <SideBarLink
-          isActive={pathname == "/feed" && !isSearch && !isCreatePost}
-          href="/feed"
-        >
-          {pathname == "/feed" && !isSearch && !isCreatePost ? (
-            <HomeFilled className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          ) : (
-            <Home className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          )}
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Home
-            </span>
-          )}
-        </SideBarLink>
+            {pathname == "/feed" && !isSearch && !isCreatePost ? (
+              <HomeFilled className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            ) : (
+              <Home className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            )}
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Home
+              </span>
+            )}
+          </SideBarLink>
 
-        <SideBarLink
-          isActive={isSearch}
-          href="#"
-          onClick={() => setIsSearch(true)}
-          className={isSearch ? "border-[1px] rounded-md" : ""}
-        >
-          <Search className="transition delay-100 group-hover:scale-105 group-active:scale-95" />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Search
-            </span>
-          )}
-        </SideBarLink>
+          <SideBarLink
+            isActive={isSearch}
+            href="#"
+            onClick={() => setIsSearch(true)}
+            className={isSearch ? "border-[1px] rounded-md" : ""}
+          >
+            <Search className="transition delay-100 group-hover:scale-105 group-active:scale-95" />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Search
+              </span>
+            )}
+          </SideBarLink>
 
-        <SideBarLink
-          isActive={pathname == "/explore" && !isSearch && !isCreatePost}
-          href="/explore"
-        >
-          <Explore className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Explore
-            </span>
-          )}
-        </SideBarLink>
+          <SideBarLink
+            isActive={pathname == "/explore" && !isSearch && !isCreatePost}
+            href="/explore"
+          >
+            <Explore className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Explore
+              </span>
+            )}
+          </SideBarLink>
 
-        <SideBarLink
-          isActive={pathname == "/reels" && !isSearch && !isCreatePost}
-          href="/reels"
-        >
-          <Reels className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Reels
-            </span>
-          )}
-        </SideBarLink>
+          <SideBarLink
+            isActive={pathname == "/reels" && !isSearch && !isCreatePost}
+            href="/reels"
+          >
+            <Reels className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Reels
+              </span>
+            )}
+          </SideBarLink>
 
-        <SideBarLink
-          isActive={pathname == "/messages" && !isSearch && !isCreatePost}
-          href="/messages"
-        >
-          <Messages className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Messages
-            </span>
-          )}
-        </SideBarLink>
+          <SideBarLink
+            isActive={pathname == "/messages" && !isSearch && !isCreatePost}
+            href="/messages"
+          >
+            <Messages className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Messages
+              </span>
+            )}
+          </SideBarLink>
 
-        <SideBarLink
-          isActive={pathname == "/notifications" && !isSearch && !isCreatePost}
-          href="/notifications"
-        >
-          <Notifications className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Notifications
-            </span>
-          )}
-        </SideBarLink>
+          <SideBarLink
+            isActive={
+              pathname == "/notifications" && !isSearch && !isCreatePost
+            }
+            href="/notifications"
+          >
+            <Notifications className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Notifications
+              </span>
+            )}
+          </SideBarLink>
 
-        <SideBarLink
-          isActive={isCreatePost}
-          href="#"
-          onClick={() => setIsCreatePost(true)}
-        >
-          <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Create
-            </span>
-          )}
-        </SideBarLink>
-        <SideBarLink
-          isActive={
-            pathname.split("/")[1] == userData?.userName &&
-            !isSearch &&
-            !isCreatePost
-          }
-          href={`/${userData?.userName}`}
-        >
-          <Avatar
-            sx={{ width: 28, height: 28 }}
-            className={`transition delay-100 group-hover:scale-105 group-active:scale-95 border-[#000000] ${
+          <SideBarLink
+            isActive={isCreatePost}
+            href="#"
+            onClick={() => setIsCreatePost(true)}
+          >
+            <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Create
+              </span>
+            )}
+          </SideBarLink>
+          <SideBarLink
+            isActive={
               pathname.split("/")[1] == userData?.userName &&
               !isSearch &&
-              !isCreatePost &&
-              "border-2"
-            } `}
-            src={userData?.profileImage}
-          />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              Profile
-            </span>
-          )}
-        </SideBarLink>
-        <SideBarLink
-          isActive={isMenu}
-          onClick={() => setIsMenu(!isMenu)}
-          href="#"
-          className="mt-auto"
-        >
-          <Burger className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-          {!isSearch && (
-            <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
-              More
-            </span>
-          )}
-        </SideBarLink>
-        <SideBarMoreMenu isMenu={isMenu} setIsMenu={setIsMenu} />
-      </nav>
+              !isCreatePost
+            }
+            href={`/${userData?.userName}`}
+          >
+            <Avatar
+              sx={{ width: 28, height: 28 }}
+              className={`transition delay-100 group-hover:scale-105 group-active:scale-95 border-[#000000] ${
+                pathname.split("/")[1] == userData?.userName &&
+                !isSearch &&
+                !isCreatePost &&
+                "border-2"
+              } `}
+              src={userData?.profileImage}
+            />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                Profile
+              </span>
+            )}
+          </SideBarLink>
+          <SideBarLink
+            isActive={isMenu}
+            onClick={() => setIsMenu(!isMenu)}
+            href="#"
+            className="mt-auto"
+          >
+            <Burger className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
+            {!isSearch && (
+              <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
+                More
+              </span>
+            )}
+          </SideBarLink>
+          <SideBarMoreMenu isMenu={isMenu} setIsMenu={setIsMenu} />
+        </nav>
+      </aside>
       <SearchDrawer isActive={isSearch} setIsActive={setIsSearch} />
-    </aside>
+      {isCreatePost && (
+        <CreatePostModal open={isCreatePost} setOpen={setIsCreatePost} />
+      )}
+      <div className="hidden sm:block sm:min-w-[76px] lg:min-w-[248px] 2xl:min-w-[393px]" />
+    </>
   );
 };
 

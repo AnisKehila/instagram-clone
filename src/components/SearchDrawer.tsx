@@ -29,7 +29,7 @@ const SearchDrawer = ({
   }, [setIsActive, isActive]);
   return (
     <div
-      className={`fixed h-screen shadow-[4px_0_24px_rgba(0,0,0,.15)] bg-white top-0 transition-all overflow-hidden duration-300 w-0 ${
+      className={`fixed z-10 h-screen shadow-[4px_0_24px_rgba(0,0,0,.15)] bg-white top-0 transition-all overflow-hidden duration-300 w-0 ${
         isActive && "w-[397px] left-[4.6rem] z-10  px-4 py-5"
       } ${!isActive && "left-10"}`}
       ref={drawerRef}

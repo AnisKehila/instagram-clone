@@ -3,7 +3,7 @@ import React from "react";
 import SideBarLink from "./SideBarLink";
 import Create from "@/assets/icons/NewPosts.svg";
 import FloatingMenu from "../ui/FloatingMenu";
-import ClickAwayListener from "@mui/base/ClickAwayListener";
+import signOut from "@/firebase/auth/signOut";
 
 const SideBarMoreMenu = ({
   isMenu,
@@ -60,7 +60,7 @@ const SideBarMoreMenu = ({
           <hr />
           <li>
             <SideBarLink href="#" className="w-full">
-              <span>Log out</span>
+              <span onClick={signOut}>Log out</span>
             </SideBarLink>
           </li>
         </ul>

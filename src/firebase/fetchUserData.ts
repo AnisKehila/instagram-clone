@@ -17,7 +17,7 @@ export const fetchUserData = async (uid: string): Promise<UserData> => {
 };
 
 export const fetchUserDataByUserName = async (
-  userName: string
+  userName: string,
 ): Promise<UserData | null> => {
   const usersRef = collection(db, "users");
   const q = query(usersRef, where("userName", "==", userName));

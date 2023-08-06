@@ -13,6 +13,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
     queryKey: ["fetch-post-user", postData.postId],
     queryFn: () => fetchUserData(postData.userId),
     onSuccess: (data) => setPostUser(data),
+    refetchOnWindowFocus: false,
   });
   return (
     postUser &&
@@ -35,6 +36,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
                 fill={true}
                 priority={true}
                 className="object-contain"
+                sizes="100%"
               />
             </SplideSlide>
           ))}

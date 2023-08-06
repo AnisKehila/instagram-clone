@@ -39,7 +39,7 @@ const LoginForm = () => {
         error.code === AuthErrorCodes.INVALID_PASSWORD
       ) {
         setErr(
-          "Sorry, your password was incorrect. Please double-check your password."
+          "Sorry, your password was incorrect. Please double-check your password.",
         );
       } else {
         setErr(`An error occurred:, ${(error.code, error.message)}`);

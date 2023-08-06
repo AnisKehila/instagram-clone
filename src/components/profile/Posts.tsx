@@ -20,7 +20,7 @@ const Posts = ({
         profileData.posts.map(async (post) => {
           const fetchedPost = await fetchPost({ postId: post });
           return fetchedPost;
-        })
+        }),
       );
       return fetchedPosts;
     },
