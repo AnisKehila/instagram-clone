@@ -19,7 +19,8 @@ To begin working on the project, follow these steps:
         pnpm install
    ```
 
-3. Start the development server with the following command:
+3. Create .env file and fill the variables.
+4. Start the development server with the following command:
 
    ```bash
        npm run dev
@@ -29,7 +30,7 @@ To begin working on the project, follow these steps:
        pnpm dev
    ```
 
-4. Open your browser and navigate to http://localhost:3000 to see the application in action. The development server supports hot-reloading, so any changes you make will automatically reflect in the browser.
+5. Open your browser and navigate to http://localhost:3000 to see the application in action. The development server supports hot-reloading, so any changes you make will automatically reflect in the browser.
 
 # Dependency Overview
 
