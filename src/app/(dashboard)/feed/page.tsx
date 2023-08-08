@@ -18,18 +18,16 @@ const Feed = () => {
       router.push("/");
     }
   }, [user, router]);
-  useEffect(
-    () => {
-      const unsub = onSnapshot(collection(db, "posts"), (docs) => {
-        docs.forEach((post) => setPosts([...posts, post.data() as Post]));
-      });
-      return () => {
-        unsub();
-      };
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [db],
-  );
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "posts"), (docs) => {
+      docs.forEach((post) =>
+        setPosts((prevData) => [...prevData, post.data() as Post]),
+      );
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
   return (
     <div className="grid grid-cols-6 mt-8 max-w-5xl w-full mx-auto">
       <div className="lg:col-span-4 col-span-6">

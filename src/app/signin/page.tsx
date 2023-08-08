@@ -10,7 +10,7 @@ const SignIn = () => {
         <div className="flex flex-col gap-[10px] w-[350px]">
           <LoginForm />
           <div className="flex gap-1 items-center justify-center text-center border border-borderColor py-[10px]">
-            <span>{"Don't have an account?"}</span>
+            <span>Don't have an account?</span>
             <Link href="/signup" className="text-blue font-semibold	">
               Sign up
             </Link>

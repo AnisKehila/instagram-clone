@@ -32,7 +32,7 @@ const Posts = ({
   });
   return (
     !isFetching && (
-      <div className="mt-5 sm:mt-11 pt-8 border-t-2 grid grid-cols-3 ">
+      <div className="mt-5 sm:mt-11 pt-8 border-t-2 gap-2 grid grid-cols-3 ">
         {!isFetching &&
           posts.length > 0 &&
           posts.map((post) => (

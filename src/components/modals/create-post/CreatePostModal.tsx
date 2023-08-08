@@ -1,5 +1,5 @@
 import Modal from "@/components/ui/Modal";
-import React, { FormEvent, useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Drag from "@/assets/icons/DragPost.svg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Image from "next/image";
@@ -8,6 +8,8 @@ import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
 import { useMutation } from "@tanstack/react-query";
 import { sharePost } from "@/firebase/sharePost";
 import Emoji from "@/assets/icons/Emoji.svg";
+import { ClickAwayListener } from "@mui/material";
+import { useAuthContext } from "@/contexts/AuthContext";
 const CreatePostModal = ({
   open,
   setOpen,
@@ -15,6 +17,7 @@ const CreatePostModal = ({
   open: boolean;
   setOpen: (arg: boolean) => void;
 }) => {
+  const { userData } = useAuthContext();
   const [files, setFiles] = useState<File[] | []>([]);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
   const [step, setStep] = useState(1);
@@ -25,9 +28,10 @@ const CreatePostModal = ({
     "image/jpeg",
     "image/jpg",
     "image/png",
-    "image/gif",
     "video/mp4",
-    "video/quicktime",
+    "video/mov",
+    "video/avi",
+    "video/mkv",
   ];
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -36,11 +40,10 @@ const CreatePostModal = ({
     const fileList = e.dataTransfer.files;
     if (fileList.length) {
       for (let i = 0; i < fileList.length; i++) {
-        if (files[i] && acceptedTypes.includes(fileList[i].type)) {
+        if (fileList[i] && acceptedTypes.includes(fileList[i].type)) {
           setFiles((prevFiles) => [...prevFiles, fileList[i]]);
         }
       }
-      setStep(2);
     }
   };
 
@@ -53,16 +56,7 @@ const CreatePostModal = ({
           setFiles((prevFiles) => [...prevFiles, fileList[i]]);
         }
       }
-      setStep(2);
     }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    setFiles((prevFiles) => {
-      const newFiles = [...prevFiles];
-      newFiles.splice(index, 1);
-      return newFiles;
-    });
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -75,23 +69,35 @@ const CreatePostModal = ({
     setIsDragOver(false);
   };
   useEffect(() => {
-    if (step == 2) {
+    if (files.length) {
       files.map((file) => {
-        setPreviewFiles([...previewFiles, URL.createObjectURL(file)]);
+        setPreviewFiles((prevFiles) => [
+          ...prevFiles,
+          URL.createObjectURL(file),
+        ]);
       });
+      setStep(2);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
-  const { mutate } = useMutation({
-    mutationKey: ["share-post"],
-    mutationFn: () => sharePost({ files: files, caption: caption }),
+    if (!files.length) {
+      setStep(1);
+    }
+  }, [files]);
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["publish-post"],
+    mutationFn: () =>
+      sharePost({
+        files: files,
+        caption: caption,
+        userId: userData?.userId || "",
+      }),
     onSuccess: () => setOpen(false),
   });
   return (
     <Modal
       open={open}
       setOpen={setOpen}
-      className="w-full sm:w-[430px] lg:w-[600px] xl:w-[720px] 2xl:w-[850px] "
+      className="w-full sm:w-[430px] lg:w-[600px] xl:w-[720px] 2xl:w-[850px]"
+      loading={isLoading}
     >
       <div className="border-b p-2 flex">
         <h1 className="font-semibold mx-auto text-xl text-center">
@@ -101,6 +107,7 @@ const CreatePostModal = ({
           <button
             className="text-blue font-semibold hover:text-sky-800 active:opacity-60"
             onClick={() => mutate()}
+            disabled={isLoading}
           >
             Share
           </button>
@@ -127,13 +134,13 @@ const CreatePostModal = ({
               Select from computer
             </label>
             <input
-              accept="image/jpeg, image/png, image/gif, video/mp4, video/quicktime"
+              accept="image/jpeg, image/png, image/gif, video/*"
               type="file"
               name="files"
               id="files"
               hidden
               onChange={handleFileInputChange}
-              multiple
+              multiple={true}
             />
           </div>
         </div>
@@ -169,14 +176,20 @@ const CreatePostModal = ({
                 <Emoji className="cursor-pointer hover:opacity-80 active:opacity-60" />
               </div>
               {isEmojiPicker && (
-                <div className="absolute left-11">
-                  <EmojiPicker
-                    emojiStyle="facebook"
-                    onEmojiClick={(emoji) =>
-                      setCaption(`${caption}${emoji.emoji}`)
-                    }
-                  />
-                </div>
+                <ClickAwayListener
+                  onClickAway={() => {
+                    setIsEmojiPicker(false);
+                  }}
+                >
+                  <div className="absolute left-11">
+                    <EmojiPicker
+                      emojiStyle={EmojiStyle.FACEBOOK}
+                      onEmojiClick={(emoji) =>
+                        setCaption(`${caption}${emoji.emoji}`)
+                      }
+                    />
+                  </div>
+                </ClickAwayListener>
               )}
             </div>
           </div>

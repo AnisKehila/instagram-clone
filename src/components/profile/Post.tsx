@@ -39,8 +39,13 @@ const Post = ({
           <Carousel className="fill-white" />
         </span>
       )}
-      <figure className="relative w-full h-full aspect-square">
-        <Image src={images?.[0]} fill={true} alt="" />
+      <figure className="relative bg-gray-100 w-full h-full aspect-square">
+        <Image
+          src={images?.[0]}
+          fill={true}
+          alt={caption}
+          className="object-contain"
+        />
       </figure>
     </Link>
   );
