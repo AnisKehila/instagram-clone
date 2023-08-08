@@ -7,12 +7,12 @@ const Modal = ({
   open,
   setOpen,
   className,
-  loading,
+  loading = false,
   ...props
 }: {
   children: React.ReactNode;
   open: boolean;
-  loading: boolean;
+  loading?: boolean;
   setOpen: (arg: boolean) => void;
 } & React.HTMLProps<HTMLDivElement>) => {
   return open ? (
