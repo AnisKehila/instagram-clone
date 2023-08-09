@@ -61,7 +61,7 @@ const Feed = () => {
             posts.map((post) => <FeedPost key={post.postId} postData={post} />)}
         </div>
       </div>
-      <div className="lg:col-span-2">
+      <div className="hidden lg:block lg:col-span-2">
         <div className="flex items-center justify-between">
           <div className="flex gap-3 items-center">
             <Link href={`/${userData?.userName}`}>

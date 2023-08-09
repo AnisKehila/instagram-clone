@@ -11,6 +11,9 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import isPostLiked from "@/utils/isPostLiked";
 import { togglePostLike } from "@/firebase/likePost";
 import { useMutation } from "@tanstack/react-query";
+import Heart from "@/assets/icons/ActivityFeed-Fiil.svg";
+import Link from "next/link";
+
 const FeedPost = ({ postData }: { postData: Post }) => {
   const [postUser, setPostUser] = useState<UserData | null>(null);
 
@@ -33,24 +36,30 @@ const FeedPost = ({ postData }: { postData: Post }) => {
         userId: userData?.userId || "",
       }),
   });
+  const [showHeart, setShowHeart] = useState(false);
 
+  const handleDoubleClick = () => {
+    if (!isLiked) mutate();
+    setShowHeart(true);
+    setTimeout(() => {
+      setShowHeart(false);
+    }, 800);
+  };
   return (
     postUser &&
     !isFetching && (
-      <div
-        className="flex flex-col gap-2 w-full max-w-[470px] [&:not(:first-child)]:border-t py-4"
-        onDoubleClick={() => mutate()}
-      >
+      <div className="flex flex-col gap-2 w-full max-w-[470px] [&:not(:first-child)]:border-t py-4">
         <FeedPostHeader
           createdAt={postData.createdAt.toDate()}
           profileImage={postUser.profileImage}
           userName={postUser.userName}
         />
-        <Splide className="">
+        <Splide>
           {postData.images.map((imageUrl, index) => (
             <SplideSlide
               key={index}
-              className="w-full h-full aspect-square relative bg-gray-100 "
+              className="w-full h-full aspect-square relative bg-gray-100"
+              onDoubleClick={handleDoubleClick}
             >
               <Image
                 src={imageUrl}
@@ -60,6 +69,11 @@ const FeedPost = ({ postData }: { postData: Post }) => {
                 className="object-contain"
                 sizes="100%"
               />
+              {showHeart && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  scale-[4] ">
+                  <Heart className="fill-slate-200 animate-ping" />
+                </div>
+              )}
             </SplideSlide>
           ))}
         </Splide>
@@ -71,6 +85,18 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           mutate={mutate}
           isLoading={isLoading}
         />
+        {postData.likes.length > 0 && (
+          <div className="font-medium">{postData.likes.length} likes</div>
+        )}
+        <div className="flex gap-2">
+          <Link
+            href={`/${userData?.userName}`}
+            className="font-medium active:opacity-70"
+          >
+            {userData?.userName}
+          </Link>
+          <p className="font-[Segoe UI Emoji]">{postData.caption}</p>
+        </div>
       </div>
     )
   );
