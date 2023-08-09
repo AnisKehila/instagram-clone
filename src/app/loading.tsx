@@ -17,7 +17,7 @@ const Loading = () => {
         alt="Loading"
         width={72}
         height={37}
-        className="mb-12"
+        className="mb-24 md:mb-12"
       />
     </div>
   );

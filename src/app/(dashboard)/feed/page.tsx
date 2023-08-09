@@ -19,15 +19,38 @@ const Feed = () => {
     }
   }, [user, router]);
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "posts"), (docs) => {
-      docs.forEach((post) =>
-        setPosts((prevData) => [...prevData, post.data() as Post]),
-      );
+    const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const post = change.doc.data() as Post;
+        const postIndex = posts.findIndex((p) => p.postId == post.postId);
+        if (change.type == "added") {
+          // Handle added post
+          if (postIndex === -1) {
+            setPosts((prevData) => [...prevData, post]);
+          }
+        } else if (change.type == "modified") {
+          // Handle modified post
+          if (postIndex !== -1) {
+            setPosts((prevData) => {
+              const updatedPosts = [...prevData];
+              updatedPosts[postIndex] = post;
+              return updatedPosts;
+            });
+          }
+        } else if (change.type == "removed") {
+          // Handle removed post
+          if (postIndex !== -1) {
+            setPosts((prevData) =>
+              prevData.filter((p) => p.postId !== post.postId),
+            );
+          }
+        }
+      });
     });
     return () => {
       unsub();
     };
-  }, []);
+  }, [posts]);
   return (
     <div className="grid grid-cols-6 mt-8 max-w-5xl w-full mx-auto">
       <div className="lg:col-span-4 col-span-6">
