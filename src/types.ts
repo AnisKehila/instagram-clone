@@ -15,10 +15,10 @@ export type Post = {
   postId: string;
   userId: string;
   images: string[];
-  videos: string[];
+  videos?: string[];
   caption: string;
-  likes: string[];
-  comments: Comment[];
+  likes?: string[];
+  comments?: Comment[];
   createdAt: Timestamp;
 };
 

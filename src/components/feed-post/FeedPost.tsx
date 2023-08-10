@@ -85,7 +85,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           mutate={mutate}
           isLoading={isLoading}
         />
-        {postData.likes.length > 0 && (
+        {postData.likes?.length && postData.likes.length > 0 && (
           <div className="font-medium px-2 sm:px-0">
             {postData.likes.length} likes
           </div>
