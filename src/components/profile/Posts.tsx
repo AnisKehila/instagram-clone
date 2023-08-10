@@ -40,10 +40,10 @@ const Posts = ({
               key={post.postId}
               postId={post.postId}
               images={post.images}
-              videos={post.videos}
+              videos={post.videos || []}
               caption={post.caption}
-              likes={post.likes}
-              comments={post.comments}
+              likes={post.likes || []}
+              comments={post.comments || []}
             />
           ))}
       </div>
