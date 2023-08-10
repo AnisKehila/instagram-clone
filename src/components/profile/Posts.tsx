@@ -17,10 +17,12 @@ const Posts = ({
     queryKey: ["fetch-posts", profileData.userId],
     queryFn: async () => {
       const fetchedPosts = await Promise.all(
-        profileData.posts.map(async (post) => {
-          const fetchedPost = await fetchPost({ postId: post });
-          return fetchedPost;
-        }),
+        profileData.posts
+          ? profileData.posts.map(async (post) => {
+              const fetchedPost = await fetchPost({ postId: post });
+              return fetchedPost;
+            })
+          : [],
       );
       return fetchedPosts;
     },
@@ -28,7 +30,7 @@ const Posts = ({
       setPosts(data);
     },
     refetchOnWindowFocus: false,
-    enabled: profileData.posts?.length > 0 ? true : false,
+    enabled: (profileData.posts?.length || 0) > 0 ? true : false,
   });
   return (
     !isFetching && (

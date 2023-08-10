@@ -42,18 +42,29 @@ const ProfileHeader = ({
               <ProfileButtons isPersonal={isPersonal} />
             </div>
             <div className="hidden sm:block">
-              <Stats userId={profileData.userId} />
+              <Stats
+                postsNumber={profileData.posts?.length || 0}
+                followersNumber={profileData.followers?.length || 0}
+                followingNumber={profileData.following.length}
+              />
             </div>
             <div className="hidden sm:block">
-              <Bio bio={profileData.bio} fullName={profileData.fullName} />
+              <Bio
+                bio={profileData?.bio || ""}
+                fullName={profileData.fullName}
+              />
             </div>
           </div>
         </div>
         <div className="sm:hidden px-4">
-          <Bio bio={profileData.bio} fullName={profileData.fullName} />
+          <Bio bio={profileData?.bio || ""} fullName={profileData.fullName} />
         </div>
         <div className="sm:hidden border-t mt-4">
-          <Stats userId={profileData.userId} />
+          <Stats
+            postsNumber={profileData.posts?.length || 0}
+            followersNumber={profileData.followers?.length || 0}
+            followingNumber={profileData.following.length}
+          />
         </div>
       </header>
       <ProfilePicModal

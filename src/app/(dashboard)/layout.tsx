@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="sm:flex">
+    <div className="sm:flex pb-20 sm:pb-0">
       <Header />
       <SideBar />
       {children}

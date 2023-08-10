@@ -45,7 +45,7 @@ const LoginForm = () => {
         setErr(`An error occurred:, ${(error.code, error.message)}`);
       }
     },
-    onSuccess: () => router.push("/"),
+    onSuccess: () => router.push("/feed"),
   });
   const handleForm = async (e: FormEvent) => {
     e.preventDefault();

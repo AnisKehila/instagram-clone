@@ -16,7 +16,7 @@ const FeedPostHeader = ({
   createdAt: Date;
 }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between px-1 sm:px-0">
       <div className="flex gap-2 items-center">
         <Link href={`/${userName}`} className="flex items-center gap-2">
           <Avatar src={profileImage} />

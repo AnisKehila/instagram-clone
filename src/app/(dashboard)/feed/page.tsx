@@ -2,9 +2,9 @@
 import { useAuthContext } from "@/contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { Post } from "@/types";
+import { Comment, Post } from "@/types";
 import FeedPost from "@/components/feed-post/FeedPost";
 import { Avatar } from "@mui/material";
 import Link from "next/link";
@@ -21,12 +21,27 @@ const Feed = () => {
   }, [user, router]);
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        const post = change.doc.data() as Post;
+      snapshot.docChanges().forEach(async (change) => {
+        let post = change.doc.data() as Post;
         const postIndex = posts.findIndex((p) => p.postId == post.postId);
         if (change.type == "added") {
-          // Handle added post
-          if (postIndex === -1) {
+          // Handle added post and initial state
+          if (postIndex === -1 && post.postId) {
+            const commentsRef = collection(
+              db,
+              "posts",
+              post.postId,
+              "comments",
+            );
+            let comments: Comment[] = [];
+            const fetch = await getDocs(commentsRef);
+            fetch.forEach((comment) =>
+              comments.push(comment.data() as Comment),
+            );
+            post = {
+              ...post,
+              comments: comments,
+            };
             setPosts((prevData) => [...prevData, post]);
           }
         } else if (change.type == "modified") {

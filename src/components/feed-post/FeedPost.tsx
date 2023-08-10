@@ -16,7 +16,6 @@ import Link from "next/link";
 
 const FeedPost = ({ postData }: { postData: Post }) => {
   const [postUser, setPostUser] = useState<UserData | null>(null);
-
   const { userData } = useAuthContext();
   const [isLiked, setIsLiked] = useState<boolean>(false);
   useEffect(() => {

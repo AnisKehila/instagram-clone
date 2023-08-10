@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import { Button } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { setProfileImageAndUpdateFirestore } from "@/firebase/updateProfilePic";

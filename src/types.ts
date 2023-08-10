@@ -5,10 +5,10 @@ export type UserData = {
   fullName: string;
   email: string;
   profileImage: string;
-  bio: string;
-  followers: string[];
+  bio?: string;
+  followers?: string[];
   following: string[];
-  posts: string[];
+  posts?: string[];
   createdAt: Timestamp;
 };
 export type Post = {
@@ -24,8 +24,8 @@ export type Post = {
 
 export type Comment = {
   commentId: string;
-  userId: string;
-  text: string;
+  userName: string;
+  comment: string;
   createdAt: Timestamp;
 };
 
