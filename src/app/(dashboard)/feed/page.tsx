@@ -62,7 +62,9 @@ const Feed = () => {
             ? posts.map((post) => (
                 <FeedPost key={post.postId} postData={post} />
               ))
-            : Array.from({ length: 4 }).map((ele) => <PostSkeleton />)}
+            : Array.from({ length: 4 }).map((ele, i) => (
+                <PostSkeleton key={i} />
+              ))}
         </div>
       </div>
       <div className="hidden lg:block lg:col-span-2">
