@@ -21,7 +21,7 @@ const Actions = ({
   setIsLiked: (arg: boolean) => void;
 }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center px-2 sm:px-0">
       <div className="flex items-center gap-2">
         <button onClick={() => mutate()} disabled={isLoading}>
           {isLiked ? (

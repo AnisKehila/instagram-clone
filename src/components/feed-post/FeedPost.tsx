@@ -86,16 +86,18 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           isLoading={isLoading}
         />
         {postData.likes.length > 0 && (
-          <div className="font-medium">{postData.likes.length} likes</div>
+          <div className="font-medium px-2 sm:px-0">
+            {postData.likes.length} likes
+          </div>
         )}
-        <div className="flex gap-2">
+        <div className="flex gap-2 px-2 sm:px-0">
           <Link
-            href={`/${userData?.userName}`}
+            href={`/${postUser.userName}`}
             className="font-medium active:opacity-70"
           >
-            {userData?.userName}
+            {postUser.userName}
           </Link>
-          <p className="font-[Segoe UI Emoji]">{postData.caption}</p>
+          <p>{postData.caption}</p>
         </div>
       </div>
     )

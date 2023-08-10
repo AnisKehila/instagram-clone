@@ -9,6 +9,7 @@ import FeedPost from "@/components/feed-post/FeedPost";
 import { Avatar } from "@mui/material";
 import Link from "next/link";
 import signOut from "@/firebase/auth/signOut";
+import PostSkeleton from "@/components/feed-post/PostSkeleton";
 const Feed = () => {
   const { user, userData } = useAuthContext();
   const [posts, setPosts] = useState<Post[]>([]);
@@ -52,13 +53,16 @@ const Feed = () => {
     };
   }, [posts]);
   return (
-    <div className="grid grid-cols-6 mt-8 max-w-5xl w-full mx-auto">
+    <div className="scroll-smooth grid grid-cols-6 mt-8 max-w-5xl w-full mx-auto">
       <div className="lg:col-span-4 col-span-6">
         {/* Stories */}
         {/* Posts */}
         <div className="flex flex-col justify-center items-center">
-          {posts.length > 0 &&
-            posts.map((post) => <FeedPost key={post.postId} postData={post} />)}
+          {posts.length > 0
+            ? posts.map((post) => (
+                <FeedPost key={post.postId} postData={post} />
+              ))
+            : Array.from({ length: 4 }).map((ele) => <PostSkeleton />)}
         </div>
       </div>
       <div className="hidden lg:block lg:col-span-2">

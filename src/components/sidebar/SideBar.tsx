@@ -176,9 +176,7 @@ const SideBar = () => {
         </nav>
       </aside>
       <SearchDrawer isActive={isSearch} setIsActive={setIsSearch} />
-      {isCreatePost && (
-        <CreatePostModal open={isCreatePost} setOpen={setIsCreatePost} />
-      )}
+      <CreatePostModal open={isCreatePost} setOpen={setIsCreatePost} />
       <div className="hidden sm:block sm:min-w-[76px] lg:min-w-[248px] 2xl:min-w-[393px]" />
     </>
   );
