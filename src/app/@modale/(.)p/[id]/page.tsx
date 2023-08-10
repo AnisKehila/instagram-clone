@@ -13,9 +13,9 @@ const page = async ({ params }: { params: { id: string } }) => {
       caption={postData.caption}
       postId={postData.postId}
       images={postData.images}
-      videos={postData.videos}
-      likes={postData.likes}
-      comments={postData.comments}
+      videos={postData.videos || []}
+      likes={postData.likes || []}
+      comments={postData.comments || []}
     />
   );
 };
