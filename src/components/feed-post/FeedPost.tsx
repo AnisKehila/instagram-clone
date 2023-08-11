@@ -13,10 +13,12 @@ import { togglePostLike } from "@/firebase/likePost";
 import { useMutation } from "@tanstack/react-query";
 import Heart from "@/assets/icons/ActivityFeed-Fiil.svg";
 import Link from "next/link";
+import AddComment from "../AddComment";
 
 const FeedPost = ({ postData }: { postData: Post }) => {
   const [postUser, setPostUser] = useState<UserData | null>(null);
   const { userData } = useAuthContext();
+  const [postedComment, setPostedComment] = useState("");
   const [isLiked, setIsLiked] = useState<boolean>(false);
   useEffect(() => {
     setIsLiked(isPostLiked({ post: postData, userId: userData?.userId || "" }));
@@ -98,6 +100,36 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           </Link>
           <p>{postData.caption}</p>
         </div>
+        <div className="flex flex-col px-2 sm:px-0">
+          {postData?.comments?.map((comment, i) => (
+            <div key={i} className="flex flex-row gap-2">
+              <Link href={`/${comment.userName}`} className="font-medium">
+                {comment.userName}
+              </Link>
+              <span>{comment.comment}</span>
+            </div>
+          ))}
+          {postedComment && (
+            <div className="flex flex-row gap-2">
+              <Link href={`/${userData?.userName}`} className="font-medium">
+                {userData?.userName}
+              </Link>
+              <span>{postedComment}</span>
+            </div>
+          )}
+          {(postData?.comments?.length || 0) > 0 && (
+            <Link
+              href={`/p/${postData.postId}`}
+              className="text-slate-400 font-light hover:text-slate-800 active:underline"
+            >
+              View all comments
+            </Link>
+          )}
+        </div>
+        <AddComment
+          postId={postData.postId}
+          setPostedComment={setPostedComment}
+        />
       </div>
     )
   );

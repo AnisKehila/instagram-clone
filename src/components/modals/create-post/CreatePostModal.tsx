@@ -4,7 +4,6 @@ import Drag from "@/assets/icons/DragPost.svg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Image from "next/image";
 import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
-
 import { useMutation } from "@tanstack/react-query";
 import { sharePost } from "@/firebase/sharePost";
 import Emoji from "@/assets/icons/Emoji.svg";

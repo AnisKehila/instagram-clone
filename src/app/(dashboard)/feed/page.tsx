@@ -2,7 +2,15 @@
 import { useAuthContext } from "@/contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { collection, onSnapshot, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  FieldPath,
+} from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { Comment, Post } from "@/types";
 import FeedPost from "@/components/feed-post/FeedPost";
@@ -26,18 +34,24 @@ const Feed = () => {
         const postIndex = posts.findIndex((p) => p.postId == post.postId);
         if (change.type == "added") {
           // Handle added post and initial state
-          if (postIndex === -1 && post.postId) {
+          if (postIndex === -1) {
+            let comments: Comment[] = [];
             const commentsRef = collection(
               db,
               "posts",
               post.postId,
               "comments",
             );
-            let comments: Comment[] = [];
-            const fetch = await getDocs(commentsRef);
+            const fetchQuery = query(
+              commentsRef,
+              orderBy("createdAt"),
+              limit(2),
+            );
+            const fetch = await getDocs(fetchQuery);
             fetch.forEach((comment) =>
               comments.push(comment.data() as Comment),
             );
+
             post = {
               ...post,
               comments: comments,
