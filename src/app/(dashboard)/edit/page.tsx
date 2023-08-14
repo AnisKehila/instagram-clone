@@ -46,7 +46,7 @@ const Edit = () => {
       </div>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-7">
-          <label className="sm:w-20 text-end font-medium" htmlFor="name">
+          <label className="sm:w-20 sm:text-end font-medium" htmlFor="name">
             Name
           </label>
           <input
@@ -59,7 +59,7 @@ const Edit = () => {
           />
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-7">
-          <label className="sm:w-20 text-end font-medium" htmlFor="username">
+          <label className="sm:w-20 sm:text-end font-medium" htmlFor="username">
             Username
           </label>
           <input
@@ -73,7 +73,7 @@ const Edit = () => {
           />
         </div>
         <div className="flex flex-col sm:flex-row sm:gap-7">
-          <label className="sm:w-20 text-end font-medium" htmlFor="bio">
+          <label className="sm:w-20 sm:text-end font-medium" htmlFor="bio">
             Bio
           </label>
           <textarea
