@@ -1,7 +1,7 @@
 import { fetchPost, fetchUserData } from "@/firebase/fetchUserData";
 import React from "react";
 import { Metadata } from "next";
-import Post from "@/components/Post";
+import Post from "@/components/post/Post";
 
 export async function generateMetadata({
   params,
@@ -20,6 +20,7 @@ export async function generateMetadata({
 const page = async ({ params }: { params: { id: string } }) => {
   const postData = await fetchPost({ postId: params.id });
   const postUser = await fetchUserData(postData.userId);
+
   return (
     <main className="max-w-5xl w-full px-3 h-screen flex items-start mx-auto overflow-x-hidden">
       <div className="border w-full mt-14">

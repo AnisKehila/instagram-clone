@@ -2,7 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/ui/Modal";
-import Post from "@/components/Post";
+import Post from "@/components/post/Post";
 import { Comment } from "@/types";
 
 const PostModal = ({

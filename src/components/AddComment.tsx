@@ -9,9 +9,11 @@ import { addComment } from "@/firebase/addComment";
 const AddComment = ({
   postId,
   setPostedComment,
+  refetch,
 }: {
   postId: string;
-  setPostedComment: (arg: string) => void;
+  setPostedComment?: (arg: string) => void;
+  refetch?: () => void;
 }) => {
   const { userData } = useAuthContext();
   const [comment, setComment] = useState("");
@@ -26,7 +28,8 @@ const AddComment = ({
       }),
     onSuccess: () => {
       setComment("");
-      setPostedComment(comment);
+      setPostedComment && setPostedComment(comment);
+      refetch && refetch();
     },
   });
   const handleSubmit = (e: FormEvent) => {

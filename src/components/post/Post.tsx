@@ -2,7 +2,7 @@
 import { Comment } from "@/types";
 import React, { useEffect, useState } from "react";
 import Dots from "@/assets/icons/More.svg";
-import Comments from "@/assets/icons/Comment.svg";
+import CommentsIcon from "@/assets/icons/Comment.svg";
 import Heart from "@/assets/icons/ActivityFeed-Fiil.svg";
 import Share from "@/assets/icons/SharePosts.svg";
 import Save from "@/assets/icons/Save.svg";
@@ -11,6 +11,14 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { Avatar } from "@mui/material";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Link from "next/link";
+import AddComment from "../AddComment";
+import { fetchComments, fetchPost } from "@/firebase/fetchUserData";
+import Comments from "./Comments";
+import Actions from "../feed-post/Actions";
+import isPostLiked from "@/utils/isPostLiked";
+import { useMutation } from "@tanstack/react-query";
+import { togglePostLike } from "@/firebase/likePost";
+
 const Post = ({
   userName,
   profilePicture,
@@ -34,9 +42,27 @@ const Post = ({
 }) => {
   const { userData } = useAuthContext();
   const [isFollowing, setIsFollowing] = useState(false);
+  const [liveComments, setComments] = useState(comments);
   useEffect(() => {
     setIsFollowing(userData?.following?.includes(userId) || false);
   }, [userData, userId]);
+  const handleFetchNewData = async () => {
+    setComments(await fetchComments({ postId }));
+  };
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  useEffect(() => {
+    setIsLiked(isPostLiked({ likes: likes, userId: userData?.userId || "" }));
+  }, [likes]);
+
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["toggle-like"],
+    mutationFn: () =>
+      togglePostLike({
+        postId: postId,
+        userId: userData?.userId || "",
+      }),
+  });
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 w-full ">
       <div className="md:hidden flex justify-between p-4">
@@ -68,8 +94,8 @@ const Post = ({
         ))}
       </Splide>
 
-      <div className="hidden md:block md:col-span-2">
-        <div className="p-2 flex justify-between">
+      <div className="hidden flex-col p-2 md:flex md:col-span-2">
+        <div className="flex justify-between">
           <Link className="flex gap-2 items-center" href={`/${userName}`}>
             <Avatar src={profilePicture} />
             <span className="font-bold text-xl">{userName}</span>
@@ -78,7 +104,22 @@ const Post = ({
             {!isFollowing && <button>Follow</button>}
             <Dots className="cursor-pointer" />
           </div>
-          {/* <Comments /> */}
+        </div>
+        <Comments comments={liveComments} />
+        <div className="mt-auto flex flex-col gap-2 border-t pt-2 ">
+          <Actions
+            postId={postId}
+            isLiked={isLiked}
+            setIsLiked={setIsLiked}
+            userId={userData?.userId || ""}
+            mutate={mutate}
+            isLoading={isLoading}
+          />
+          <AddComment
+            postId={postId}
+            setPostedComment={handleFetchNewData}
+            refetch={handleFetchNewData}
+          />
         </div>
       </div>
     </div>

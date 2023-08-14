@@ -26,7 +26,7 @@ export type Comment = {
   commentId: string;
   userName: string;
   comment: string;
-  createdAt: Timestamp;
+  createdAt: Date;
 };
 
 export type Like = {

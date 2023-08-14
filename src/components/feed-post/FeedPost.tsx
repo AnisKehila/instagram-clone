@@ -21,7 +21,12 @@ const FeedPost = ({ postData }: { postData: Post }) => {
   const [postedComment, setPostedComment] = useState("");
   const [isLiked, setIsLiked] = useState<boolean>(false);
   useEffect(() => {
-    setIsLiked(isPostLiked({ post: postData, userId: userData?.userId || "" }));
+    setIsLiked(
+      isPostLiked({
+        likes: postData.likes || [""],
+        userId: userData?.userId || "",
+      }),
+    );
   }, [postData]);
   const { isFetching } = useQuery({
     queryKey: ["fetch-post-user", postData.postId],
@@ -79,7 +84,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           ))}
         </Splide>
         <Actions
-          post={postData}
+          postId={postData.postId}
           isLiked={isLiked}
           setIsLiked={setIsLiked}
           userId={userData?.userId || ""}

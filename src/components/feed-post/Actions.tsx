@@ -5,15 +5,14 @@ import Heart from "@/assets/icons/ActivityFeed.svg";
 import Share from "@/assets/icons/SharePosts.svg";
 import Save from "@/assets/icons/Save.svg";
 import Link from "next/link";
-import { Post } from "@/types";
 
 const Actions = ({
-  post,
+  postId,
   isLiked,
   mutate,
   isLoading,
 }: {
-  post: Post;
+  postId: string;
   userId: string;
   isLiked: boolean;
   mutate: () => void;
@@ -30,7 +29,7 @@ const Actions = ({
             <Heart className="cursor-pointer" />
           )}
         </button>
-        <Link href={`/p/${post.postId}`}>
+        <Link href={`/p/${postId}`}>
           <Comments className="hover:opacity-60 cursor-pointer" />
         </Link>
         <Share className="hover:opacity-60 cursor-pointer" />

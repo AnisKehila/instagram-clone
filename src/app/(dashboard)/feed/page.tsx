@@ -49,7 +49,10 @@ const Feed = () => {
             );
             const fetch = await getDocs(fetchQuery);
             fetch.forEach((comment) =>
-              comments.push(comment.data() as Comment),
+              comments.push({
+                ...comment.data(),
+                createdAt: comment.data().createdAt.toDate(),
+              } as Comment),
             );
 
             post = {

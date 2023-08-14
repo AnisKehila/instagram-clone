@@ -17,5 +17,8 @@ export const addComment = async ({
   });
 
   const commentRef = doc(db, "posts", postId, "comments", commentId.id);
-  await updateDoc(commentRef, { postId: commentId.id });
+  await updateDoc(commentRef, {
+    postId: commentId.id,
+    commentId: commentId.id,
+  });
 };

@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "./config";
-import { Post, UserData } from "@/types";
+import { Comment, Post, UserData } from "@/types";
 
 export const fetchUserData = async (uid: string): Promise<UserData> => {
   const userIdRef = doc(collection(db, "users"), uid);
@@ -86,9 +86,31 @@ export const fetchPost = async ({
 }): Promise<Post> => {
   try {
     const ref = doc(db, "posts", postId);
-    const data = (await getDoc(ref)).data() as Post;
+    let data = (await getDoc(ref)).data() as Post;
+    data.comments = await fetchComments({ postId });
+
     return data;
   } catch (error) {
     throw Error(`Error fetching count: ${error}`);
+  }
+};
+
+export const fetchComments = async ({
+  postId,
+}: {
+  postId: string;
+}): Promise<Comment[]> => {
+  try {
+    let comments: Comment[] = [];
+    const ref = collection(db, "posts", postId, "comments");
+    (await getDocs(ref)).forEach((comment) =>
+      comments.push({
+        ...comment.data(),
+        createdAt: comment.data().createdAt.toDate(),
+      } as Comment),
+    );
+    return comments;
+  } catch (error) {
+    throw Error(`Error fetching comments: ${error}`);
   }
 };

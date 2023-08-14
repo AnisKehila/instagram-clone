@@ -1,10 +1,8 @@
-import { Post } from "@/types";
-
-const isPostLiked: (arg: { post: Post; userId: string }) => boolean = ({
-  post,
+const isPostLiked: (arg: { likes: string[]; userId: string }) => boolean = ({
+  likes,
   userId,
 }) => {
-  return post.likes?.includes(userId) || false;
+  return likes?.includes(userId) || false;
 };
 
 export default isPostLiked;
