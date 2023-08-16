@@ -1,20 +1,17 @@
 "use client";
 import { Comment } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Dots from "@/assets/icons/More.svg";
-import CommentsIcon from "@/assets/icons/Comment.svg";
 import Heart from "@/assets/icons/ActivityFeed-Fiil.svg";
-import Share from "@/assets/icons/SharePosts.svg";
-import Save from "@/assets/icons/Save.svg";
 import Image from "next/image";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Avatar } from "@mui/material";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Link from "next/link";
 import AddComment from "../AddComment";
-import { fetchComments, fetchPost } from "@/firebase/fetchUserData";
+import { fetchComments } from "@/firebase/fetchUserData";
 import Comments from "./Comments";
-import Actions from "../feed-post/Actions";
+import Actions from "./Actions";
 import isPostLiked from "@/utils/isPostLiked";
 import { useMutation } from "@tanstack/react-query";
 import { togglePostLike } from "@/firebase/likePost";
@@ -43,13 +40,15 @@ const Post = ({
   const { userData } = useAuthContext();
   const [isFollowing, setIsFollowing] = useState(false);
   const [liveComments, setComments] = useState(comments);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [showHeart, setShowHeart] = useState(false);
+  const commentRef: React.Ref<HTMLInputElement> = useRef(null);
   useEffect(() => {
     setIsFollowing(userData?.following?.includes(userId) || false);
   }, [userData, userId]);
   const handleFetchNewData = async () => {
     setComments(await fetchComments({ postId }));
   };
-  const [isLiked, setIsLiked] = useState<boolean>(false);
   useEffect(() => {
     setIsLiked(isPostLiked({ likes: likes, userId: userData?.userId || "" }));
   }, [likes]);
@@ -61,8 +60,15 @@ const Post = ({
         postId: postId,
         userId: userData?.userId || "",
       }),
+    onSuccess: () => setIsLiked(!isLiked),
   });
-
+  const handleDoubleClick = () => {
+    if (!isLiked) mutate();
+    setShowHeart(true);
+    setTimeout(() => {
+      setShowHeart(false);
+    }, 800);
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 w-full ">
       <div className="md:hidden flex justify-between p-4">
@@ -81,6 +87,7 @@ const Post = ({
           <SplideSlide
             key={index}
             className="w-full h-full aspect-square relative bg-gray-100 "
+            onDoubleClick={handleDoubleClick}
           >
             <Image
               src={imageUrl}
@@ -90,6 +97,11 @@ const Post = ({
               className="object-contain"
               sizes="100%"
             />
+            {showHeart && (
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  scale-[4] ">
+                <Heart className="fill-slate-200 animate-ping" />
+              </div>
+            )}
           </SplideSlide>
         ))}
       </Splide>
@@ -110,15 +122,16 @@ const Post = ({
           <Actions
             postId={postId}
             isLiked={isLiked}
-            setIsLiked={setIsLiked}
             userId={userData?.userId || ""}
             mutate={mutate}
             isLoading={isLoading}
+            commentRef={commentRef}
           />
           <AddComment
             postId={postId}
             setPostedComment={handleFetchNewData}
             refetch={handleFetchNewData}
+            commentRef={commentRef}
           />
         </div>
       </div>

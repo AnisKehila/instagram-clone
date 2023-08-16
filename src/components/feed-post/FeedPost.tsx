@@ -20,6 +20,8 @@ const FeedPost = ({ postData }: { postData: Post }) => {
   const { userData } = useAuthContext();
   const [postedComment, setPostedComment] = useState("");
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [showHeart, setShowHeart] = useState(false);
+
   useEffect(() => {
     setIsLiked(
       isPostLiked({
@@ -42,7 +44,6 @@ const FeedPost = ({ postData }: { postData: Post }) => {
         userId: userData?.userId || "",
       }),
   });
-  const [showHeart, setShowHeart] = useState(false);
 
   const handleDoubleClick = () => {
     if (!isLiked) mutate();

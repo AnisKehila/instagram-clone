@@ -10,10 +10,12 @@ const AddComment = ({
   postId,
   setPostedComment,
   refetch,
+  commentRef,
 }: {
   postId: string;
   setPostedComment?: (arg: string) => void;
   refetch?: () => void;
+  commentRef?: React.Ref<HTMLInputElement>;
 }) => {
   const { userData } = useAuthContext();
   const [comment, setComment] = useState("");
@@ -52,6 +54,7 @@ const AddComment = ({
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         disabled={isLoading}
+        ref={commentRef}
       />
       <div className="ml-auto" onClick={() => setIsEmojiPicker(true)}>
         <Emoji className="cursor-pointer hover:opacity-80 active:opacity-60 scale-75" />
