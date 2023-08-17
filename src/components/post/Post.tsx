@@ -71,7 +71,7 @@ const Post = ({
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 w-full ">
-      <div className="md:hidden flex justify-between p-4">
+      <div className="md:hidden flex justify-between px-4 py-2">
         <Link className="flex gap-2 items-center" href={`/${userName}`}>
           <Avatar src={profilePicture} />
           <span className="font-bold text-xl">{userName}</span>
@@ -82,7 +82,7 @@ const Post = ({
         </div>
       </div>
 
-      <Splide className="md:col-span-3">
+      <Splide className="col-span-1 md:col-span-3">
         {images.map((imageUrl, index) => (
           <SplideSlide
             key={index}
@@ -106,8 +106,8 @@ const Post = ({
         ))}
       </Splide>
 
-      <div className="hidden flex-col p-2 md:flex md:col-span-2">
-        <div className="flex justify-between">
+      <div className="flex-col p-2 flex md:col-span-2">
+        <div className="hidden md:flex justify-between">
           <Link className="flex gap-2 items-center" href={`/${userName}`}>
             <Avatar src={profilePicture} />
             <span className="font-bold text-xl">{userName}</span>
@@ -117,8 +117,7 @@ const Post = ({
             <Dots className="cursor-pointer" />
           </div>
         </div>
-        <Comments comments={liveComments} />
-        <div className="mt-auto flex flex-col gap-2 border-t pt-2 ">
+        <div className="md:hidden pt-2">
           <Actions
             postId={postId}
             isLiked={isLiked}
@@ -127,6 +126,19 @@ const Post = ({
             isLoading={isLoading}
             commentRef={commentRef}
           />
+        </div>
+        <Comments comments={liveComments} />
+        <div className="mt-auto flex flex-col gap-2 border-t pt-2 ">
+          <div className="hidden md:block">
+            <Actions
+              postId={postId}
+              isLiked={isLiked}
+              userId={userData?.userId || ""}
+              mutate={mutate}
+              isLoading={isLoading}
+              commentRef={commentRef}
+            />
+          </div>
           <AddComment
             postId={postId}
             setPostedComment={handleFetchNewData}

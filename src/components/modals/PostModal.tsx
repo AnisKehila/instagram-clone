@@ -34,7 +34,7 @@ const PostModal = ({
         router.back();
         return false;
       }}
-      className="max-w-6xl flex w-full"
+      className="max-w-6xl flex w-full mx-2 max-md:max-h-[70vh] overflow-y-auto"
     >
       <Post
         userId={userId}

@@ -22,7 +22,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   const postUser = await fetchUserData(postData.userId);
 
   return (
-    <main className="max-w-5xl w-full px-3 h-screen flex items-start mx-auto overflow-x-hidden">
+    <main className="max-w-5xl w-full px-3 flex items-start mx-auto overflow-x-hidden">
       <div className="border w-full mt-14">
         <Post
           userId={postUser.userId}
