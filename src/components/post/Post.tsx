@@ -125,6 +125,7 @@ const Post = ({
             mutate={mutate}
             isLoading={isLoading}
             commentRef={commentRef}
+            likesNum={likes.length}
           />
         </div>
         <Comments comments={liveComments} />
@@ -137,6 +138,7 @@ const Post = ({
               mutate={mutate}
               isLoading={isLoading}
               commentRef={commentRef}
+              likesNum={likes.length}
             />
           </div>
           <AddComment

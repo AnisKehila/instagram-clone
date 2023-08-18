@@ -10,6 +10,7 @@ const Actions = ({
   isLiked,
   mutate,
   isLoading,
+  likesNum,
   commentRef,
 }: {
   postId: string;
@@ -17,27 +18,31 @@ const Actions = ({
   isLiked: boolean;
   mutate: () => void;
   isLoading: boolean;
+  likesNum: number;
   commentRef: React.RefObject<HTMLInputElement>;
 }) => {
   return (
-    <div className="flex justify-between items-center px-2 sm:px-0">
-      <div className="flex items-center gap-2">
-        <button onClick={() => mutate()} disabled={isLoading}>
-          {isLiked ? (
-            <HeartFill className="fill-red-500 cursor-pointer" />
-          ) : (
-            <Heart className="cursor-pointer" />
-          )}
-        </button>
-        <Comments
-          className="hover:opacity-60 cursor-pointer"
-          onClick={() => {
-            commentRef.current && commentRef.current.focus();
-          }}
-        />
-        <Share className="hover:opacity-60 cursor-pointer" />
+    <div className="flex flex-col gap-1">
+      <div className="flex justify-between items-center px-2 sm:px-0">
+        <div className="flex items-center gap-2">
+          <button onClick={() => mutate()} disabled={isLoading}>
+            {isLiked ? (
+              <HeartFill className="fill-red-500 cursor-pointer" />
+            ) : (
+              <Heart className="cursor-pointer" />
+            )}
+          </button>
+          <Comments
+            className="hover:opacity-60 cursor-pointer"
+            onClick={() => {
+              commentRef.current && commentRef.current.focus();
+            }}
+          />
+          <Share className="hover:opacity-60 cursor-pointer" />
+        </div>
+        <Save className="hover:opacity-60 cursor-pointer" />
       </div>
-      <Save className="hover:opacity-60 cursor-pointer" />
+      <span>{likesNum} likes</span>
     </div>
   );
 };
