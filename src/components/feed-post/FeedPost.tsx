@@ -97,18 +97,20 @@ const FeedPost = ({ postData }: { postData: Post }) => {
             {postData.likes?.length} likes
           </div>
         )}
-        <div className="flex gap-2 px-2 sm:px-0">
-          <Link
-            href={`/${postUser.userName}`}
-            className="font-medium active:opacity-70"
-          >
-            {postUser.userName}
-          </Link>
-          <p>{postData.caption}</p>
-        </div>
+        {postData.caption && (
+          <div className="flex gap-2 px-2 sm:px-0">
+            <Link
+              href={`/${postUser.userName}`}
+              className="font-medium active:opacity-70"
+            >
+              {postUser.userName}
+            </Link>
+            <p>{postData.caption}</p>
+          </div>
+        )}
         <div className="flex flex-col px-2 sm:px-0">
           {postData?.comments?.map((comment, i) => (
-            <div key={i} className="flex flex-row gap-2">
+            <div key={comment.commentId} className="flex flex-row gap-2">
               <Link href={`/${comment.userName}`} className="font-medium">
                 {comment.userName}
               </Link>

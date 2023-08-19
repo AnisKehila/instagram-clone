@@ -1,5 +1,5 @@
 "use client";
-import { Comment } from "@/types";
+import { Comment as CommentType } from "@/types";
 import React, { useEffect, useState, useRef } from "react";
 import Dots from "@/assets/icons/More.svg";
 import Heart from "@/assets/icons/ActivityFeed-Fiil.svg";
@@ -15,6 +15,8 @@ import Actions from "./Actions";
 import isPostLiked from "@/utils/isPostLiked";
 import { useMutation } from "@tanstack/react-query";
 import { togglePostLike } from "@/firebase/likePost";
+import Comment from "./Comment";
+import FollowButton from "../FollowButton";
 
 const Post = ({
   userName,
@@ -35,7 +37,7 @@ const Post = ({
   videos: string[];
   caption: string;
   likes: string[];
-  comments: Comment[];
+  comments: CommentType[];
 }) => {
   const { userData } = useAuthContext();
   const [isFollowing, setIsFollowing] = useState(false);
@@ -77,7 +79,7 @@ const Post = ({
           <span className="font-bold text-xl">{userName}</span>
         </Link>
         <div className="flex items-center gap-2">
-          {!isFollowing && <button>Follow</button>}
+          {!isFollowing && <FollowButton userId={userId} />}
           <Dots className="cursor-pointer" />
         </div>
       </div>
@@ -113,7 +115,7 @@ const Post = ({
             <span className="font-bold text-xl">{userName}</span>
           </Link>
           <div className="flex items-center gap-2">
-            {!isFollowing && <button>Follow</button>}
+            {!isFollowing && <FollowButton userId={userId} />}
             <Dots className="cursor-pointer" />
           </div>
         </div>
@@ -128,7 +130,25 @@ const Post = ({
             likesNum={likes.length}
           />
         </div>
-        <Comments comments={liveComments} />
+        <div className=" max-h-[480px] py-4 border-y mt-4 overflow-y-auto text-ellipsis ">
+          {caption && (
+            <div className="flex items-start gap-2">
+              <Link href={`/${userName}`}>
+                <Avatar alt={userName} src={profilePicture} />
+              </Link>
+              <div className="flex flex-col">
+                <div className="flex items-end gap-4">
+                  <Link className="font-medium" href={`/${userName}`}>
+                    {userName}
+                  </Link>
+                </div>
+                <span className="text-ellipsis overflow-hidden">{caption}</span>
+              </div>
+            </div>
+          )}
+          <Comments comments={liveComments} />
+        </div>
+
         <div className="mt-auto flex flex-col gap-2 border-t pt-2 ">
           <div className="hidden md:block">
             <Actions

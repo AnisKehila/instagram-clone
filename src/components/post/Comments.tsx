@@ -3,7 +3,7 @@ import React from "react";
 import Comment from "./Comment";
 const Comments = ({ comments }: { comments: CommentType[] }) => {
   return (
-    <div className=" max-h-[480px] py-4 border-y mt-4 overflow-y-auto text-ellipsis ">
+    <>
       {comments.map((comment, i) => (
         <Comment
           key={comment.commentId}
@@ -12,7 +12,7 @@ const Comments = ({ comments }: { comments: CommentType[] }) => {
           createdAt={comment.createdAt}
         />
       ))}
-    </div>
+    </>
   );
 };
 

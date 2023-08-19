@@ -39,7 +39,10 @@ const ProfileHeader = ({
           <div className="flex flex-col">
             <div className="flex flex-col md:flex-row gap-4 md:items-center">
               <span className="text-[28px]">{profileData.userName}</span>
-              <ProfileButtons isPersonal={isPersonal} />
+              <ProfileButtons
+                isPersonal={isPersonal}
+                userId={profileData.userId}
+              />
             </div>
             <div className="hidden sm:block">
               <Stats
