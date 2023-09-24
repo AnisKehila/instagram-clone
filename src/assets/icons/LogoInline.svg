@@ -1,7 +1,7 @@
 <svg
   aria-label="Instagram"
-  color="rgb(0, 0, 0)"
-  fill="rgb(0, 0, 0)"
+  color="currentColor"
+  fill="currentColor"
   height="29"
   role="img"
   viewBox="32 4 113 32"
