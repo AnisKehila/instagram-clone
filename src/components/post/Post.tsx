@@ -53,7 +53,7 @@ const Post = ({
   };
   useEffect(() => {
     setIsLiked(isPostLiked({ likes: likes, userId: userData?.userId || "" }));
-  }, [likes]);
+  }, [likes, userData?.userId]);
 
   const { mutate, isLoading } = useMutation({
     mutationKey: ["toggle-like"],
