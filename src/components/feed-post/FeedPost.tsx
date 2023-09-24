@@ -29,7 +29,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
         userId: userData?.userId || "",
       }),
     );
-  }, [postData]);
+  }, [postData.likes]);
   const { isFetching } = useQuery({
     queryKey: ["fetch-post-user", postData.postId],
     queryFn: () => fetchUserData(postData.userId),
@@ -109,8 +109,8 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           </div>
         )}
         <div className="flex flex-col px-2 sm:px-0">
-          {postData?.comments?.map((comment, i) => (
-            <div key={comment.commentId} className="flex flex-row gap-2">
+          {postData.comments?.map((comment, i) => (
+            <div key={i} className="flex flex-row gap-2">
               <Link href={`/${comment.userName}`} className="font-medium">
                 {comment.userName}
               </Link>
@@ -125,7 +125,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
               <span>{postedComment}</span>
             </div>
           )}
-          {(postData?.comments?.length || 0) > 0 && (
+          {(postData.comments?.length || 0) > 0 && (
             <Link
               href={`/p/${postData.postId}`}
               className="text-slate-400 font-light hover:text-slate-800 active:underline"
