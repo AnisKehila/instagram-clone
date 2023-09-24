@@ -1,12 +1,15 @@
 "use client";
 import React from "react";
 import { AuthContextProvider } from "@/contexts/AuthContext";
+import ThemeProvider from "@/contexts/ThemeProvider";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import styles from "@/assets/styles/progress.css";
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const   Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <AuthContextProvider>{children}</AuthContextProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AuthContextProvider>{children}</AuthContextProvider>
+      </ThemeProvider>
       <ProgressBar
         options={{ showSpinner: false }}
         shallowRouting

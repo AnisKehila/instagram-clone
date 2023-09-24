@@ -28,7 +28,7 @@ const SideBar = () => {
   const { userData } = useAuthContext();
   return (
     <>
-      <aside className="hidden fixed z-20 top-0 sm:flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 bg-white border-r-[1px] border-gray-300 transition duration-300">
+      <aside className="hidden fixed z-20 top-0 sm:flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 dark:text-white border-r-[1px] border-gray-300 transition duration-300">
         <header className={`pt-[25px] pb-4  ${!isSearch && "lg:px-[12px]"}`}>
           {!isSearch && (
             <Link
