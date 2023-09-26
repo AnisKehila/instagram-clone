@@ -72,9 +72,9 @@ const SideBarMoreMenu = ({
               </SideBarLink>
             </li>
             <span className="relative h-[2px] w-full bg-white dark:bg-[#353535]"></span>
-            <li>
+            <li onClick={signOut}>
               <SideBarLink href="#" className="w-full">
-                <span onClick={signOut}>Log out</span>
+                <span>Log out</span>
               </SideBarLink>
             </li>
           </ul>
