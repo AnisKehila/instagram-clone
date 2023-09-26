@@ -29,6 +29,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
         userId: userData?.userId || "",
       }),
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postData.likes]);
   const { isFetching } = useQuery({
     queryKey: ["fetch-post-user", postData.postId],
@@ -65,7 +66,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
           {postData.images.map((imageUrl, index) => (
             <SplideSlide
               key={index}
-              className="w-full h-full aspect-square relative bg-gray-100"
+              className="w-full h-full aspect-square relative bg-gray-100 dark:bg-black"
               onDoubleClick={handleDoubleClick}
             >
               <Image

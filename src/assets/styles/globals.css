@@ -148,3 +148,6 @@
   font-style: normal;
   font-display: swap;
 }
+input {
+  background-color: transparent;
+}

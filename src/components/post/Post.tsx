@@ -88,7 +88,7 @@ const Post = ({
         {images.map((imageUrl, index) => (
           <SplideSlide
             key={index}
-            className="w-full h-full aspect-square relative bg-gray-100 "
+            className="w-full h-full aspect-square relative bg-gray-100 dark:bg-black"
             onDoubleClick={handleDoubleClick}
           >
             <Image
@@ -130,7 +130,7 @@ const Post = ({
             likesNum={likes.length}
           />
         </div>
-        <div className=" max-h-[480px] py-4 border-y mt-4 overflow-y-auto text-ellipsis ">
+        <div className=" max-h-[480px] py-4 border-t mt-4 overflow-y-auto text-ellipsis ">
           {caption && (
             <div className="flex items-start gap-2">
               <Link href={`/${userName}`}>

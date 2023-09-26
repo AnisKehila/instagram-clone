@@ -27,7 +27,7 @@ const Modal = ({
         }}
       >
         <div
-          className={`bg-white rounded-lg overflow-hidden animate-modal-pop z-30 relative ${
+          className={`bg-white dark:bg-[#262626] dark:text-white rounded-lg overflow-hidden animate-modal-pop z-30 relative ${
             className ? className : ""
           }`}
           {...props}

@@ -39,7 +39,7 @@ const Post = ({
           <Carousel className="fill-white" />
         </span>
       )}
-      <figure className="relative bg-gray-100 w-full h-full aspect-square">
+      <figure className="relative bg-gray-100 dark:bg-black w-full h-full aspect-square">
         <Image
           src={images?.[0]}
           fill={true}

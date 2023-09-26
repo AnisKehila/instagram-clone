@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="sm:flex min-h-screen pb-20 sm:pb-0 dark:bg-[#000000] text-white">
+    <div className="sm:flex min-h-screen pb-20 sm:pb-0 dark:bg-[#000000] dark:text-white">
       <Header />
       <SideBar />
       {children}

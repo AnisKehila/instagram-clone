@@ -7,12 +7,12 @@ const Button = ({
 }: {
   children: React.ReactNode;
   className?: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+} & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...props}
       className={
-        "bg-[#EFEFEF] rounded-lg hover:bg-[#DBDBDB] active:opacity-60 h-9 text[#000000] " +
+        "bg-[#EFEFEF] dark:bg-black rounded-lg hover:bg-[#DBDBDB] active:opacity-60 h-9 text[#000000] " +
           className || ""
       }
     >
