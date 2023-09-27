@@ -4,10 +4,10 @@ import { AuthContextProvider } from "@/contexts/AuthContext";
 import ThemeProvider from "@/contexts/ThemeProvider";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import styles from "@/assets/styles/progress.css";
-const   Providers = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="light">
         <AuthContextProvider>{children}</AuthContextProvider>
       </ThemeProvider>
       <ProgressBar

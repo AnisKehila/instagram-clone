@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Loading from "@/app/loading";
 import { fetchUserData } from "@/firebase/fetchUserData";
 import { UserData } from "@/types";
+import { useRouter } from "next/navigation";
 const auth = getAuth(firebaseApp);
 type AuthContextProps = {
   user: User | null;
@@ -38,7 +39,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const router = useRouter();
   useEffect(() => {
     const unsubscribe: Unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -46,17 +47,20 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         setUserData((await fetchUserData(user.uid)) || null);
       } else {
         setUser(null);
+        router.push("/signin");
       }
       setLoading(false);
     });
+
     return () => unsubscribe();
-  }, []);
+  });
   const value = {
     user,
     setUserData,
     userData,
     loading,
   };
+
   if (loading) return <Loading />;
   return (
     <QueryClientProvider client={queryClient}>

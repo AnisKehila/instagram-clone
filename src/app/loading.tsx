@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 const Loading = () => {
   return (
-    <div className="flex items-center flex-col justify-between min-h-screen">
+    <div className="flex items-center flex-col justify-between min-h-screen dark:bg-black">
       <div className="flex-1 flex items-center">
         <Image
           src="/logoTransparent.png"

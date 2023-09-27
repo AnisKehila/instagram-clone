@@ -19,14 +19,8 @@ import Link from "next/link";
 import signOut from "@/firebase/auth/signOut";
 import PostSkeleton from "@/components/feed-post/PostSkeleton";
 const Feed = () => {
-  const { user, userData } = useAuthContext();
+  const { userData } = useAuthContext();
   const [posts, setPosts] = useState<Post[]>([]);
-  const router = useRouter();
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-    }
-  }, [user, router]);
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
