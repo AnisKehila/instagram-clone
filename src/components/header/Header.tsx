@@ -30,7 +30,7 @@ const Header = () => {
               setResults={setResults}
             />
             {search && (
-              <div className="absolute z-30 w-full dark:bg-black mt-4 flex flex-col rounded-md max-h-72 overflow-x-hidden overflow-y-auto ">
+              <div className="absolute z-30 w-full dark:bg-black bg-white shadow-md mt-4 flex flex-col rounded-md max-h-72 overflow-x-hidden overflow-y-auto ">
                 {results.map((result) => (
                   <Link
                     href={`/${result.userName}`}
