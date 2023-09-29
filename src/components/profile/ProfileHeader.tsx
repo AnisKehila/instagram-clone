@@ -18,7 +18,7 @@ const ProfileHeader = ({
 
   return (
     <>
-      <header className="mt-8">
+      <header className="pt-8">
         <div className="flex items-center  sm:items-start gap-6 px-4 md:gap-[101px] md:px-[68px]">
           <div className={`relative ${imageLoading && "opacity-60"}`}>
             <Avatar

@@ -79,7 +79,7 @@ const Feed = () => {
     };
   }, [posts]);
   return (
-    <div className="scroll-smooth grid grid-cols-6 mt-8 max-w-5xl w-full mx-auto">
+    <div className="scroll-smooth grid grid-cols-6 pt-8 max-w-5xl w-full mx-auto">
       <div className="lg:col-span-4 col-span-6">
         {/* Stories */}
         {/* Posts */}

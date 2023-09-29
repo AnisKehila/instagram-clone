@@ -9,7 +9,6 @@ import Notifications from "@/assets/icons/ActivityFeed.svg";
 import Create from "@/assets/icons/NewPosts.svg";
 import Burger from "@/assets/icons/Burger.svg";
 import Avatar from "@mui/material/Avatar";
-import SearchDrawer from "../SearchDrawer";
 
 import Link from "next/link";
 import CreatePostModal from "../modals/create-post/CreatePostModal";
@@ -20,7 +19,7 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="sm:hidden fixed bottom-0 bg-white border-t z-30 w-full shadow-sm">
+      <nav className="sm:hidden fixed bottom-0 border-t bg-white dark:bg-[#000000] dark:border-gray-300 z-30 w-full shadow-sm">
         <div className="flex justify-around items-center py-3">
           <Link
             href="/feed"

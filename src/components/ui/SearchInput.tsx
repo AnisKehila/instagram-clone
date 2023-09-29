@@ -35,14 +35,24 @@ const SearchInput = ({
   }, [searchValue]);
 
   const performSearch = async () => {
-    if (!searchValue) {
-      setResults([]);
-      return;
+    try {
+      if (!searchValue) {
+        setResults([]);
+        return;
+      }
+      setIsLoading(true);
+      const results = await search({ search: searchValue });
+      if (results && results.length > 0) {
+        setResults(results);
+      } else {
+        setResults([]);
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error performing search:", error);
+      setIsLoading(false);
     }
-    setIsLoading(true);
-    const results = await search({ search: searchValue });
-    setResults(results);
-    setIsLoading(false);
   };
 
   return (

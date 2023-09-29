@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 import SearchInput from "./ui/SearchInput";
 import { UserData } from "@/types";
+import Link from "next/link";
+import { Avatar } from "@mui/material";
+import SearchResultSkeleton from "./ui/SearchResultSkeleton";
 
 const SearchDrawer = ({
   isActive,
@@ -21,6 +24,8 @@ const SearchDrawer = ({
       !drawerRef.current.contains(event.target as Node) &&
       isActive
     ) {
+      setSearch("");
+      setIsLoading(false);
       setIsActive(false);
     }
   };
@@ -47,10 +52,25 @@ const SearchDrawer = ({
           setResults={setResults}
         />
       </div>
-      <div className="mt-8">
+      <div className="mt-8 flex flex-col">
         {results.map((result) => (
-          <div key={result.userId}>{result.fullName}</div>
+          <Link
+            href={`/${result.userName}`}
+            key={result.userId}
+            className="flex gap-4 items-center hover:bg-[#F2F2F2] dark:hover:bg-[#1A1A1A] p-2 rounded-md"
+          >
+            <Avatar src={result.profileImage} className="w-12 h-12" />
+            <div className="flex flex-col">
+              <span>{result.userName}</span>
+              <span className="text-[#A8A8A8]">{result.fullName}</span>
+            </div>
+          </Link>
         ))}
+        {isLoading &&
+          results.length < 1 &&
+          Array.from({ length: 8 }, (_, index) => (
+            <SearchResultSkeleton key={index} />
+          ))}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Header = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<UserData[]>([]);
   return (
-    <header className="sm:hidden px-4 sticky top-0 bg-white border-b shadow-sm z-30 w-full">
+    <header className="sm:hidden px-4 sticky top-0 bg-white dark:bg-[#000000] border-b shadow-sm z-30 w-full">
       <div className="flex justify-between items-center py-3">
         <Link
           href="/feed"
