@@ -3,7 +3,7 @@ import React from "react";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col gap-10 text-center mx-auto mt-8 ">
+    <div className="flex flex-col gap-10 text-center mx-auto pt-8">
       <span className="font-extrabold text-2xl">
         Sorry, this page {"isn't"} available.
       </span>
