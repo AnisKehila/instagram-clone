@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     });
 
     return () => unsubscribe();
-  });
+  }, []);
   const value = {
     user,
     setUserData,
