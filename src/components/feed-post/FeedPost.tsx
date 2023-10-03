@@ -21,7 +21,6 @@ const FeedPost = ({ postData }: { postData: Post }) => {
   const [postedComment, setPostedComment] = useState("");
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [showHeart, setShowHeart] = useState(false);
-
   useEffect(() => {
     setIsLiked(
       isPostLiked({
@@ -29,7 +28,7 @@ const FeedPost = ({ postData }: { postData: Post }) => {
         userId: userData?.userId || "",
       }),
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postData.likes]);
   const { isFetching } = useQuery({
     queryKey: ["fetch-post-user", postData.postId],

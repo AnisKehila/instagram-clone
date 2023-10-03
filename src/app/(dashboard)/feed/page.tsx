@@ -1,83 +1,13 @@
 "use client";
-import { useAuthContext } from "@/contexts/AuthContext";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import {
-  collection,
-  onSnapshot,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-  FieldPath,
-} from "firebase/firestore";
-import { db } from "@/firebase/config";
-import { Comment, Post } from "@/types";
+import React from "react";
 import FeedPost from "@/components/feed-post/FeedPost";
-import { Avatar } from "@mui/material";
-import Link from "next/link";
-import signOut from "@/firebase/auth/signOut";
 import PostSkeleton from "@/components/feed-post/PostSkeleton";
-const Feed = () => {
-  const { userData } = useAuthContext();
-  const [posts, setPosts] = useState<Post[]>([]);
-  useEffect(() => {
-    const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
-      snapshot.docChanges().forEach(async (change) => {
-        let post = change.doc.data() as Post;
-        const postIndex = posts.findIndex((p) => p.postId == post.postId);
-        if (change.type == "added") {
-          // Handle added post and initial state
-          if (postIndex === -1) {
-            let comments: Comment[] = [];
-            const commentsRef = collection(
-              db,
-              "posts",
-              post.postId,
-              "comments",
-            );
-            const fetchQuery = query(
-              commentsRef,
-              orderBy("createdAt"),
-              limit(2),
-            );
-            const fetch = await getDocs(fetchQuery);
-            fetch.forEach((comment) =>
-              comments.push({
-                ...comment.data(),
-                createdAt: comment.data().createdAt.toDate(),
-              } as Comment),
-            );
+import usePosts from "@/hooks/usePosts";
+import Profile from "@/components/right-sidebar/Profile";
+import Suggestions from "@/components/right-sidebar/Suggestions";
 
-            post = {
-              ...post,
-              comments: comments,
-            };
-            setPosts((prevData) => [...prevData, post]);
-          }
-        } else if (change.type == "modified") {
-          // Handle modified post
-          if (postIndex !== -1) {
-            setPosts((prevData) => {
-              const updatedPosts = [...prevData];
-              updatedPosts[postIndex] = post;
-              return updatedPosts;
-            });
-          }
-        } else if (change.type == "removed") {
-          // Handle removed post
-          if (postIndex !== -1) {
-            setPosts((prevData) =>
-              prevData.filter((p) => p.postId !== post.postId),
-            );
-          }
-        }
-      });
-    });
-    return () => {
-      unsub();
-    };
-  }, [posts]);
+const Feed = () => {
+  const [posts] = usePosts([]);
   return (
     <div className="scroll-smooth grid grid-cols-6 pt-8 max-w-5xl w-full mx-auto">
       <div className="lg:col-span-4 col-span-6">
@@ -93,29 +23,10 @@ const Feed = () => {
               ))}
         </div>
       </div>
+      {/* Suggestions and profile */}
       <div className="hidden lg:block lg:col-span-2">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-3 items-center">
-            <Link href={`/${userData?.userName}`}>
-              <Avatar
-                className="w-[56px] h-[56px]"
-                src={userData?.profileImage}
-              />
-            </Link>
-            <div className="flex flex-col">
-              <Link className="font-semibold" href={`/${userData?.userName}`}>
-                {userData?.userName}
-              </Link>
-              <span className="text-gray-600">{userData?.fullName}</span>
-            </div>
-          </div>
-          <button
-            className="text-sm text-red-500 hover:opacity-60 font-semibold"
-            onClick={signOut}
-          >
-            Log out
-          </button>
-        </div>
+        <Profile />
+        <Suggestions />
       </div>
     </div>
   );
