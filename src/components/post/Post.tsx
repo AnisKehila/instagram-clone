@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Avatar } from "@mui/material";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import Link from "next/link";
 import AddComment from "../AddComment";
 import { fetchComments } from "@/firebase/fetchUserData";
 import Comments from "./Comments";
@@ -74,10 +73,10 @@ const Post = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 w-full ">
       <div className="md:hidden flex justify-between px-4 py-2">
-        <Link className="flex gap-2 items-center" href={`/${userName}`}>
+        <a className="flex gap-2 items-center" href={`/${userName}`}>
           <Avatar src={profilePicture} />
           <span className="font-bold text-xl">{userName}</span>
-        </Link>
+        </a>
         <div className="flex items-center gap-2">
           {!isFollowing && <FollowButton userId={userId} />}
           <Dots className="cursor-pointer" />
@@ -110,10 +109,10 @@ const Post = ({
 
       <div className="flex-col p-2 flex md:col-span-2">
         <div className="hidden md:flex justify-between">
-          <Link className="flex gap-2 items-center" href={`/${userName}`}>
+          <a className="flex gap-2 items-center" href={`/${userName}`}>
             <Avatar src={profilePicture} />
             <span className="font-bold text-xl">{userName}</span>
-          </Link>
+          </a>
           <div className="flex items-center gap-2">
             {!isFollowing && <FollowButton userId={userId} />}
             <Dots className="cursor-pointer" />
@@ -133,14 +132,14 @@ const Post = ({
         <div className=" max-h-[480px] py-4 border-t mt-4 overflow-y-auto text-ellipsis ">
           {caption && (
             <div className="flex items-start gap-2">
-              <Link href={`/${userName}`}>
+              <a href={`/${userName}`}>
                 <Avatar alt={userName} src={profilePicture} />
-              </Link>
+              </a>
               <div className="flex flex-col">
                 <div className="flex items-end gap-4">
-                  <Link className="font-medium" href={`/${userName}`}>
+                  <a className="font-medium" href={`/${userName}`}>
                     {userName}
-                  </Link>
+                  </a>
                 </div>
                 <span className="text-ellipsis overflow-hidden">{caption}</span>
               </div>

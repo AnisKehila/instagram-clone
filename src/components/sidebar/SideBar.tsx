@@ -29,8 +29,12 @@ const SideBar = () => {
   return (
     <>
       <aside className="hidden fixed z-20 top-0 sm:flex flex-col items-start h-screen px-[12px] pt-[8px] pb-5 dark:text-white border-r-[1px] dark:border-[#262626] border-gray-300 transition duration-300">
-        <header className={`pt-[25px] pb-4  ${!isSearch && "lg:px-[12px]"}`}>
-          {!isSearch && (
+        <header
+          className={`pt-[25px] pb-4  ${
+            !isSearch && !pathname.includes("messages") && "lg:px-[12px]"
+          }`}
+        >
+          {!isSearch && !pathname.includes("messages") && (
             <Link
               href="/feed"
               className={`hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]`}
@@ -38,21 +42,34 @@ const SideBar = () => {
               <LogoInline />
             </Link>
           )}
-          <SideBarLink href="/feed" className={`${!isSearch && "lg:hidden"}`}>
+          <SideBarLink
+            href="/feed"
+            className={`${
+              !isSearch && !pathname.includes("messages") && "lg:hidden"
+            }`}
+          >
             <LogoBlack className="transition duration-100 group-hover:scale-105 group-active:scale-95 " />
           </SideBarLink>
         </header>
         <nav className="flex-grow flex flex-col gap-1">
           <SideBarLink
-            isActive={pathname == "/feed" && !isSearch && !isCreatePost}
+            isActive={
+              pathname == "/feed" &&
+              !isSearch &&
+              !pathname.includes("messages") &&
+              !isCreatePost
+            }
             href="/feed"
           >
-            {pathname == "/feed" && !isSearch && !isCreatePost ? (
+            {pathname == "/feed" &&
+            !isSearch &&
+            !pathname.includes("messages") &&
+            !isCreatePost ? (
               <HomeFilled className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
             ) : (
               <Home className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
             )}
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Home
               </span>
@@ -66,7 +83,7 @@ const SideBar = () => {
             className={isSearch ? "border-[1px] rounded-md" : ""}
           >
             <Search className="transition delay-100 group-hover:scale-105 group-active:scale-95" />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Search
               </span>
@@ -74,11 +91,16 @@ const SideBar = () => {
           </SideBarLink>
 
           <SideBarLink
-            isActive={pathname == "/explore" && !isSearch && !isCreatePost}
+            isActive={
+              pathname == "/explore" &&
+              !isSearch &&
+              !pathname.includes("messages") &&
+              !isCreatePost
+            }
             href="/explore"
           >
             <Explore className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Explore
               </span>
@@ -86,11 +108,16 @@ const SideBar = () => {
           </SideBarLink>
 
           <SideBarLink
-            isActive={pathname == "/reels" && !isSearch && !isCreatePost}
+            isActive={
+              pathname == "/reels" &&
+              !isSearch &&
+              !pathname.includes("messages") &&
+              !isCreatePost
+            }
             href="/reels"
           >
             <Reels className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Reels
               </span>
@@ -98,11 +125,16 @@ const SideBar = () => {
           </SideBarLink>
 
           <SideBarLink
-            isActive={pathname == "/messages" && !isSearch && !isCreatePost}
+            isActive={
+              pathname == "/messages" &&
+              !isSearch &&
+              !pathname.includes("messages") &&
+              !isCreatePost
+            }
             href="/messages"
           >
             <Messages className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Messages
               </span>
@@ -111,12 +143,15 @@ const SideBar = () => {
 
           <SideBarLink
             isActive={
-              pathname == "/notifications" && !isSearch && !isCreatePost
+              pathname == "/notifications" &&
+              !isSearch &&
+              !pathname.includes("messages") &&
+              !isCreatePost
             }
             href="/notifications"
           >
             <Notifications className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Notifications
               </span>
@@ -129,7 +164,7 @@ const SideBar = () => {
             onClick={() => setIsCreatePost(true)}
           >
             <Create className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Create
               </span>
@@ -139,6 +174,7 @@ const SideBar = () => {
             isActive={
               pathname.split("/")[1] == userData?.userName &&
               !isSearch &&
+              !pathname.includes("messages") &&
               !isCreatePost
             }
             href={`/${userData?.userName}`}
@@ -148,12 +184,13 @@ const SideBar = () => {
               className={`transition delay-100 group-hover:scale-105 group-active:scale-95 border-[#000000] ${
                 pathname.split("/")[1] == userData?.userName &&
                 !isSearch &&
+                !pathname.includes("messages") &&
                 !isCreatePost &&
                 "border-2"
               } `}
               src={userData?.profileImage}
             />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 Profile
               </span>
@@ -166,7 +203,7 @@ const SideBar = () => {
             className="mt-auto"
           >
             <Burger className="transition delay-100 group-hover:scale-105 group-active:scale-95 " />
-            {!isSearch && (
+            {!isSearch && !pathname.includes("messages") && (
               <span className="hidden lg:block w-auto lg:w-[160px] 2xl:w-[251px]">
                 More
               </span>
@@ -177,7 +214,11 @@ const SideBar = () => {
       </aside>
       <SearchDrawer isActive={isSearch} setIsActive={setIsSearch} />
       <CreatePostModal open={isCreatePost} setOpen={setIsCreatePost} />
-      <div className="hidden sm:block sm:min-w-[76px] lg:min-w-[248px] 2xl:min-w-[393px]" />
+      <div
+        className={`hidden sm:block ${
+          !pathname.includes("messages") && "lg:min-w-[248px] 2xl:min-w-[393px]"
+        } sm:min-w-[76px]`}
+      />
     </>
   );
 };
