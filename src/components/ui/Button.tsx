@@ -12,7 +12,7 @@ const Button = ({
     <button
       {...props}
       className={
-        "bg-[#EFEFEF] dark:bg-black rounded-lg hover:bg-[#DBDBDB] active:opacity-60 h-9 text[#000000] " +
+        "bg-[#EFEFEF] dark:bg-black rounded-lg hover:opacity-90 active:opacity-60 h-9 text[#000000] " +
           className || ""
       }
     >
