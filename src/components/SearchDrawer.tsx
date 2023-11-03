@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-
 import SearchInput from "./ui/SearchInput";
 import { UserData } from "@/types";
 import Link from "next/link";
