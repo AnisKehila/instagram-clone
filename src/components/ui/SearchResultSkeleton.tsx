@@ -11,7 +11,7 @@ const SearchResultSkeleton = () => {
     >
       <Skeleton
         variant="circular"
-        className="dark:bg-black"
+        className="dark:bg-neutral-700"
         width={50}
         height={50}
       />
@@ -19,13 +19,13 @@ const SearchResultSkeleton = () => {
       <Box ml={2}>
         <Skeleton
           variant="text"
-          className="dark:bg-black"
+          className="dark:bg-neutral-700"
           width={200}
           height={20}
         />
         <Skeleton
           variant="text"
-          className="dark:bg-black"
+          className="dark:bg-neutral-700"
           width={150}
           height={20}
         />

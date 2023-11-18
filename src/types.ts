@@ -35,6 +35,12 @@ export type Like = {
   createdAt: Timestamp;
 };
 
+export type Message = {
+  sender: string;
+  content: string;
+  time: Timestamp;
+};
+
 export type Activity = {
   user_id: string;
   activity_type: "like" | "comment" | "follow";

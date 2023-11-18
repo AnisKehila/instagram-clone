@@ -7,7 +7,7 @@ const ConversationList = () => {
   const { userData } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-r border-[#A8A8A8] min-h-screen">
+    <div className="border-r border-[#A8A8A8] dark:border-neutral-800 min-h-screen">
       <div className="flex px-7 py-8 w-full justify-between">
         <span className="font-bold text-xl">{userData?.userName}</span>
         <span onClick={() => setIsOpen(true)} className="cursor-pointer">
