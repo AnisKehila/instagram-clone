@@ -17,8 +17,8 @@ const ConversationHeader = ({ users }: { users: UserData[] }) => {
           ? userData?.fullName
           : recievers.length == 1
           ? recievers[0].fullName
-          : recievers.map((reciever, i) =>
-              i < 3 ? `${reciever.fullName.slice(0, 4)}, ` : "...",
+          : recievers.map(
+              (reciever, i) => i < 3 && `${reciever.fullName.slice(0, 4)}, `,
             )}
       </span>
     </div>
