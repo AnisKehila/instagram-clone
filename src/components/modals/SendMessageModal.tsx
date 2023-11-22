@@ -73,8 +73,8 @@ const SendMessageModal = ({
           ))}
         {isLoading && (
           <div className="flex flex-col gap-2">
-            {Array.from({ length: 2 }).map((ele: any) => (
-              <SearchResultSkeleton key={ele} />
+            {Array.from({ length: 2 }).map((_, i) => (
+              <SearchResultSkeleton key={i} />
             ))}
           </div>
         )}

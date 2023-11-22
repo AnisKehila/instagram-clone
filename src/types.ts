@@ -38,6 +38,7 @@ export type Like = {
 export type Message = {
   sender: string;
   content: string;
+  image?: File | string;
   time: Timestamp;
 };
 

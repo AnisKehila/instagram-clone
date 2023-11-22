@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
+import EmojiPicker, { EmojiStyle, Theme } from "emoji-picker-react";
 import { useMutation } from "@tanstack/react-query";
 import { ClickAwayListener } from "@mui/material";
 import Emoji from "@/assets/icons/Emoji.svg";
@@ -36,10 +36,7 @@ const AddComment = ({
   });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (isLoading) return;
-    if (userData && comment) {
-      mutate();
-    }
+    if (!isLoading && userData && comment) mutate();
   };
   return (
     <form
@@ -69,6 +66,7 @@ const AddComment = ({
             <EmojiPicker
               emojiStyle={EmojiStyle.FACEBOOK}
               onEmojiClick={(emoji) => setComment(`${comment}${emoji.emoji}`)}
+              theme={Theme.AUTO}
             />
           </div>
         </ClickAwayListener>
