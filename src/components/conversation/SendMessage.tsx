@@ -73,7 +73,12 @@ const SendMessage = ({ roomId }: { roomId: string }) => {
               id="imgs"
             />
           </label>
-          <Heart className="stroke-black dark:stroke-white cursor-pointer" />
+          <Heart
+            className="stroke-black dark:stroke-white cursor-pointer"
+            onClick={() =>
+              mutate({ ...message, time: Timestamp.now(), content: "❤️" })
+            }
+          />
         </div>
       )}
       {message.content && !isLoading && (
