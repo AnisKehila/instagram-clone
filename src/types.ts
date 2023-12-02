@@ -52,3 +52,10 @@ export type Activity = {
 export type ExplorePosts = {
   postIds: string[];
 };
+
+export type Room = { roomId: string; users: string[] };
+export type MessagingRoom = {
+  roomId: string;
+  users: UserData[];
+  lastMessage: Message;
+};
