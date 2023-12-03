@@ -64,33 +64,6 @@ const useMessagingRooms = (
             }
           }
         });
-        // snapshot.docs.map((doc) => {
-        //   const room = doc.data() as Room;
-        //   const unsubMessage = onSnapshot(
-        //     collection(db, "inboxRooms", room.roomId, "messages"),
-        //     (messagesSnapshot) => {
-        //       messagesSnapshot.docChanges().forEach((change) => {
-        //         const message = change.doc.data() as Message;
-        //         const roomIndex = messagingRooms.findIndex(
-        //           (r) => r.roomId === room.roomId,
-        //         );
-        //         if (
-        //           message.time.toMillis() >
-        //           messagingRooms[roomIndex]?.lastMessage.time.toMillis()
-        //         ) {
-        //           setMessagingRooms((prevState) => {
-        //             const updatedRooms = [...prevState];
-        //             updatedRooms[roomIndex] = {
-        //               ...updatedRooms[roomIndex],
-        //               lastMessage: message,
-        //             };
-        //             return updatedRooms;
-        //           });
-        //         }
-        //       });
-        //     },
-        //   );
-        // });
         snapshot.forEach(async (roomDoc) => {
           const messagesQuery = query(
             collection(db, "inboxRooms", roomDoc.id, "messages"),
