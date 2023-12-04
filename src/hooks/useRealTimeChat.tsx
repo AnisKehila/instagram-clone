@@ -19,7 +19,7 @@ const useRealTimeChat = ({
     const unsub = onSnapshot(
       query(
         collection(db, "inboxRooms", roomId, "messages"),
-        orderBy("time", "desc"),
+        orderBy("time", "asc"),
       ),
       (snapshot) => {
         snapshot.docChanges().forEach((change) => {
