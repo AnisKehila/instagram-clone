@@ -1,6 +1,6 @@
 # Instagram Clone - Next.js and React Application
 
-This is a project that aims to create an Instagram clone using Next.js and React. The project is bootstrapped with create-next-app to provide a solid foundation for building a modern web application.
+This project aims to create an Instagram clone using Next.js and React. It is bootstrapped with create-next-app to provide a solid foundation for building a modern web application.
 
 ![1691517075723](image/README/1691517075723.png)
 
